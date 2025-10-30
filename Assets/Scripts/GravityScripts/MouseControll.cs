@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MauseControl : MonoBehaviour
+public class MouseControll : MonoBehaviour
 {
     private Vector2 startPoint;
     private Vector2 endPoint;
@@ -11,7 +11,7 @@ public class MauseControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 始点
+        // 始点設定
         if (Input.GetMouseButtonDown(0))
         {
             startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -22,6 +22,7 @@ public class MauseControl : MonoBehaviour
         {
             endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             DrawRectangle();
+
             
         }
 
@@ -32,6 +33,7 @@ public class MauseControl : MonoBehaviour
         }
     }
 
+    // 描画（線、面ではない）
     void DrawRectangle()
     {
         //残りの2点を計算
@@ -50,6 +52,10 @@ public class MauseControl : MonoBehaviour
             lineRenderer.SetPosition(3, p4);
             lineRenderer.SetPosition(4, p1);// 閉じる
         }
+    }
+
+    void deleteLine()
+    {
 
     }
 }
