@@ -16,20 +16,25 @@ public class MouseControll : MonoBehaviour
         {
             startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             isDragging = true;
+            lineRenderer.enabled = true;// / 描画も有効化
         }
         //　ドラッグ中は終点を更新
         if (Input.GetMouseButton(0)&&isDragging)
         {
             endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             DrawRectangle();
-
-            
         }
 
-        // マウスを離したらドラッグ終了
+        // 左クリックを離したらドラッグ終了
         if (Input.GetMouseButtonUp(0))
         {
             isDragging = false;
+        }
+        // 右クリックで削除（ドラッグ中でも後でも
+        if (Input.GetMouseButtonDown(1))
+        {
+            CancelRectangle();
+            return;// 押してる間の誤作動防止（将来のこの下に拡張する場合に備えて）
         }
     }
 
@@ -54,8 +59,13 @@ public class MouseControll : MonoBehaviour
         }
     }
 
-    void deleteLine()
+    void CancelRectangle()
     {
-
+        if(lineRenderer != null)
+        {
+            lineRenderer.positionCount = 0; // 頂点を消す
+            lineRenderer.enabled = false; // 描画も非表示に
+        }
+        isDragging = false; //　状態リセット
     }
 }
