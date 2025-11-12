@@ -8,8 +8,8 @@ TagManager:
   - Wall
   - Ground
   - Item
-  - GravityPoint
   - MoveObject
+  - GravityField
   layers:
   - Default
   - TransparentFX

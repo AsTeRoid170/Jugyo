@@ -6,7 +6,11 @@ public class MouseControll : MonoBehaviour
     private Vector2 endPoint;
     private bool isDragging = false;
 
+    // LineRenderer
     public LineRenderer lineRenderer;
+
+    // プレハブ(インスペクターで割り当て)
+    public GameObject GravityField;
 
     // Update is called once per frame
     void Update()
@@ -28,7 +32,13 @@ public class MouseControll : MonoBehaviour
         // 左クリックを離したらドラッグ終了
         if (Input.GetMouseButtonUp(0))
         {
+            if (isDragging)
+            {
+                CreateGrivetyField();
+                CancelRectangle();//画像挿入後、線は消す
+            }
             isDragging = false;
+
         }
         // 右クリックで削除（ドラッグ中でも後でも
         if (Input.GetMouseButtonDown(1))
@@ -67,5 +77,29 @@ public class MouseControll : MonoBehaviour
             lineRenderer.enabled = false; // 描画も非表示に
         }
         isDragging = false; //　状態リセット
+    }
+
+    void CreateGrivetyField()
+    {
+        if(GravityField == null)
+        {
+            Debug.LogWarning("GravityField prefab not assigend!!");
+            return;
+        }
+
+        // 中心座標を計算
+        Vector2 center = (startPoint + endPoint) / 2f;
+
+        // 幅と高さを算出
+        float width = Mathf.Abs(endPoint.x - startPoint.x);
+        float height = Mathf.Abs(endPoint.y - startPoint.y);
+
+        // プレハブ生成
+        GameObject field = Instantiate(GravityField, center, Quaternion.identity);
+
+
+
+        //スケールを調整（プレハブの基準サイズが1×１と仮定）
+        field.transform.localScale = new Vector3(width, height, 1f);
     }
 }
