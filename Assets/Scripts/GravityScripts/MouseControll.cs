@@ -20,9 +20,9 @@ public class MouseControll : MonoBehaviour
         {
             startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             isDragging = true;
-            lineRenderer.enabled = true;// / 描画も有効化
+            lineRenderer.enabled = true;// 描画も有効化
         }
-        //　ドラッグ中は終点を更新
+        // ドラッグ中は終点を更新
         if (Input.GetMouseButton(0)&&isDragging)
         {
             endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -32,10 +32,10 @@ public class MouseControll : MonoBehaviour
         // 左クリックを離したらドラッグ終了
         if (Input.GetMouseButtonUp(0))
         {
-            if (isDragging)
+            if (isDragging) 
             {
                 CreateGrivetyField();
-                CancelRectangle();//画像挿入後、線は消す
+                CancelRectangle();// 画像挿入後、線は消す
             }
             isDragging = false;
 
@@ -51,7 +51,7 @@ public class MouseControll : MonoBehaviour
     // 描画（線、面ではない）
     void DrawRectangle()
     {
-        //残りの2点を計算
+        // 残りの2点を計算
         Vector2 p1 = startPoint;
         Vector2 p2 = new Vector2(startPoint.x, endPoint.y);
         Vector2 p3 = endPoint;
@@ -97,9 +97,26 @@ public class MouseControll : MonoBehaviour
         // プレハブ生成
         GameObject field = Instantiate(GravityField, center, Quaternion.identity);
 
+        // SpriteRendrer取得
+        SpriteRenderer sr = field.GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            // 現在のSpriteのサイズ
+            Vector2 spriteSize = sr.bounds.size;
 
+            // scale補正係数
+            float scaleX = width / spriteSize.x;
+            float scaleY = height / spriteSize.y;
 
-        //スケールを調整（プレハブの基準サイズが1×１と仮定）
-        field.transform.localScale = new Vector3(width, height, 1f);
+            // 適用
+            field.transform.localScale = new Vector3(scaleX, scaleY , 1f);
+        }
+        else
+        {
+            // spriteRendererがない場合は通常通り
+            // スケールを調整（プレハブの基準サイズが1×１と仮定）
+            field.transform.localScale = new Vector3(width, height, 1f);
+        }
+        
     }
 }
