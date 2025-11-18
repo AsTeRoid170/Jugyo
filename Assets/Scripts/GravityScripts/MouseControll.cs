@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class MouseControll : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class MouseControll : MonoBehaviour
 
     // プレハブ(インスペクターで割り当て)
     public GameObject GravityField;
+
+    // 作成した GravityField 管理（FIFO）
+    private Queue<GameObject> filedQueue = new Queue<GameObject>();
+    private const int maxFieldCount = 2;
 
     // Update is called once per frame
     void Update()
@@ -29,23 +34,19 @@ public class MouseControll : MonoBehaviour
             DrawRectangle();
         }
 
-        // 左クリックを離したらドラッグ終了
-        if (Input.GetMouseButtonUp(0))
+        // 左クリック終了(確定)
+        if (Input.GetMouseButtonUp(0) && isDragging)
         {
-            if (isDragging) 
-            {
-                CreateGrivetyField();
-                CancelRectangle();// 画像挿入後、線は消す
-            }
             isDragging = false;
-
+            CreateGravityField(); // 範囲フィット生成
+            lineRenderer.enabled = false; // 線は自動で消す
         }
-        // 右クリックで削除（ドラッグ中でも後でも
+        // 右クリックで削除（キャンセル or FIFO削除）
         if (Input.GetMouseButtonDown(1))
         {
-            CancelRectangle();
-            return;// 押してる間の誤作動防止（将来のこの下に拡張する場合に備えて）
+            RightClickDelete();
         }
+       
     }
 
     // 描画（線、面ではない）
@@ -69,33 +70,27 @@ public class MouseControll : MonoBehaviour
         }
     }
 
-    void CancelRectangle()
+    // 枠線を元に画像を作成,FIFO管理
+    void CreateGravityField()
     {
-        if(lineRenderer != null)
-        {
-            lineRenderer.positionCount = 0; // 頂点を消す
-            lineRenderer.enabled = false; // 描画も非表示に
-        }
-        isDragging = false; //　状態リセット
-    }
-
-    void CreateGrivetyField()
-    {
-        if(GravityField == null)
+        // 画像がなかった場合に警告
+        /*if(GravityField == null)
         {
             Debug.LogWarning("GravityField prefab not assigend!!");
             return;
-        }
+        }*/
 
         // 中心座標を計算
         Vector2 center = (startPoint + endPoint) / 2f;
+
+        // プレハブ生成
+        GameObject field = Instantiate(GravityField, center, Quaternion.identity);
 
         // 幅と高さを算出
         float width = Mathf.Abs(endPoint.x - startPoint.x);
         float height = Mathf.Abs(endPoint.y - startPoint.y);
 
-        // プレハブ生成
-        GameObject field = Instantiate(GravityField, center, Quaternion.identity);
+        
 
         // SpriteRendrer取得
         SpriteRenderer sr = field.GetComponent<SpriteRenderer>();
@@ -117,6 +112,37 @@ public class MouseControll : MonoBehaviour
             // スケールを調整（プレハブの基準サイズが1×１と仮定）
             field.transform.localScale = new Vector3(width, height, 1f);
         }
-        
+
+        // FIFO上限管理
+        filedQueue.Enqueue(field);
+
+        // 上限こえたら古いほうを削除
+        if (filedQueue.Count > maxFieldCount)
+        {
+            GameObject oldField = filedQueue.Dequeue();
+            Destroy(oldField);
+        }
+
+
+    }
+    // 枠線を削除
+    void RightClickDelete()
+    {
+        if (isDragging)
+        {
+            //  生成途中（枠線だけ削除）
+            // lineRenderer.positionCount = 0; // 頂点を消す
+            isDragging = false; //　状態リセット
+            lineRenderer.enabled = false; // 描画も非表示に
+            return;
+        }
+
+        // 生成済みGravityFieldをFIFOで削除
+        if (filedQueue.Count > 0)
+        {
+            GameObject oldField = filedQueue.Dequeue();
+            Destroy(oldField);
+        }
+       
     }
 }
