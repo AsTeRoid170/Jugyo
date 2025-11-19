@@ -88,6 +88,16 @@ public class MouseControll : MonoBehaviour
         float width = Mathf.Abs(endPoint.x - startPoint.x);
         float height = Mathf.Abs(endPoint.y - startPoint.y);
 
+        // 面積が１平方cmより小さい場合（自動キャンセル）
+        float area = width * height;
+        if (area < 1f)// 1cm^2未満
+        {
+            Debug.Log("画像が小さすぎます！！");
+            lineRenderer.enabled = false;// 枠線を消す
+            isDragging = false;// 状態リセット
+            return; //生成を中止
+        }
+
         // プレハブ生成
         GameObject field = Instantiate(GravityField, center, Quaternion.identity);
 
@@ -118,8 +128,7 @@ public class MouseControll : MonoBehaviour
             field.transform.localScale = new Vector3(width, height, 1f);
         }
 
-        // 画像の面積を生成直後に取得
-        float area = areaInfo.area;
+        // 画像の面積を生成直後にログに取得
         Debug.Log(" 生成した重力場の面積 :" + area);
 
 
