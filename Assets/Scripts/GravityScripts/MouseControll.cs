@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class MouseControll : MonoBehaviour
 {
@@ -74,23 +75,27 @@ public class MouseControll : MonoBehaviour
     void CreateGravityField()
     {
         // 画像がなかった場合に警告
-        /*if(GravityField == null)
+        if (GravityField == null)
         {
             Debug.LogWarning("GravityField prefab not assigend!!");
             return;
-        }*/
+        }
 
         // 中心座標を計算
         Vector2 center = (startPoint + endPoint) / 2f;
-
-        // プレハブ生成
-        GameObject field = Instantiate(GravityField, center, Quaternion.identity);
 
         // 幅と高さを算出
         float width = Mathf.Abs(endPoint.x - startPoint.x);
         float height = Mathf.Abs(endPoint.y - startPoint.y);
 
-        
+        // プレハブ生成
+        GameObject field = Instantiate(GravityField, center, Quaternion.identity);
+
+        // GravityField.csを参照(2025//11/19 に追加)
+        GravityField areaInfo = field.AddComponent<GravityField>();
+        areaInfo.width = width;
+        areaInfo.height = height;
+
 
         // SpriteRendrer取得
         SpriteRenderer sr = field.GetComponent<SpriteRenderer>();
@@ -113,6 +118,11 @@ public class MouseControll : MonoBehaviour
             field.transform.localScale = new Vector3(width, height, 1f);
         }
 
+        // 画像の面積を生成直後に取得
+        float area = areaInfo.area;
+        Debug.Log(" 生成した重力場の面積 :" + area);
+
+
         // FIFO上限管理
         filedQueue.Enqueue(field);
 
@@ -130,7 +140,7 @@ public class MouseControll : MonoBehaviour
     {
         if (isDragging)
         {
-            //  生成途中（枠線だけ削除）
+            //  生成途中（手動キャンセル、枠線だけ削除）
             // lineRenderer.positionCount = 0; // 頂点を消す
             isDragging = false; //　状態リセット
             lineRenderer.enabled = false; // 描画も非表示に
@@ -141,7 +151,18 @@ public class MouseControll : MonoBehaviour
         if (filedQueue.Count > 0)
         {
             GameObject oldField = filedQueue.Dequeue();
+
+            // 削除する重力場の面積を求める
+            var area = oldField.GetComponent<GravityField>();
+            if(area != null)
+            {
+                Debug.Log("削除する重力場の面積 = " + area.area);
+            }
+
             Destroy(oldField);
+
+            // 上で求めた面積の半分を四捨五入してエネルギーに足す
+
         }
        
     }
