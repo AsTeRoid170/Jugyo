@@ -8,6 +8,13 @@ public class MouseControll : MonoBehaviour
     private Vector2 endPoint;
     private bool isDragging = false;
 
+    // カーソル関連
+    public Texture2D cursorYes;
+    public Texture2D cursorNo;
+    // 現在のカーソルがどちらか
+    private bool isYesCursor = true;
+
+
     // LineRenderer
     public LineRenderer lineRenderer;
 
@@ -20,7 +27,12 @@ public class MouseControll : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+
     {
+
+        // カーソル 毎フレーム判定
+        CursorState();
+        
         // 始点設定
         if (Input.GetMouseButtonDown(0))
         {
@@ -88,11 +100,29 @@ public class MouseControll : MonoBehaviour
         float width = Mathf.Abs(endPoint.x - startPoint.x);
         float height = Mathf.Abs(endPoint.y - startPoint.y);
 
-        // 面積が１平方cmより小さい場合（自動キャンセル）
+        // 面積
         float area = width * height;
-        if (area < 1f)// 1cm^2未満
+
+
+        if ( area < 1f )// 最小サイズチェック 1cm^2未満
         {
-            Debug.Log("画像が小さすぎます！！");
+            Debug.Log("画像が小さすぎるッピ！");
+            lineRenderer.enabled = false;// 枠線を消す
+            isDragging = false;// 状態リセット
+            return; //生成を中止
+        }
+
+        if ( width >10f || height> 10f )// 最大サイズチェック 10cm 超過
+        {
+            Debug.Log("タテ、ヨコのどちらかが長すぎるッピ！");
+            lineRenderer.enabled = false;// 枠線を消す
+            isDragging = false;// 状態リセット
+            return; //生成を中止
+        }
+
+        if ( area > 25f )// 最大面積チェック 25cm^2 超過
+        { 
+            Debug.Log("画像がデカすぎるッピ！");
             lineRenderer.enabled = false;// 枠線を消す
             isDragging = false;// 状態リセット
             return; //生成を中止
@@ -174,5 +204,10 @@ public class MouseControll : MonoBehaviour
 
         }
        
+    }
+
+    // 次回やること11/20時点
+    void CursorState() { 
+
     }
 }
