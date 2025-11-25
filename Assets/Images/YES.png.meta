@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: eab869b4866c09b41bf9ed303dff99eb
+guid: 082239f5442399f4f8299a4cc356a73d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3467304445265872440
-    second: YES!_0
+      213: 1968381097245904912
+    second: YES_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -57,7 +57,7 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 8
+  textureType: 7
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: YES!_0
+      name: YES_0
       rect:
         serializedVersion: 2
-        x: 147
-        y: 77
-        width: 452
-        height: 494
+        x: 1
+        y: 1
+        width: 653
+        height: 652
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8c97bc34af8a1efc0800000000000000
-      internalID: -3467304445265872440
+      spriteID: 0109fe3dd28115b10800000000000000
+      internalID: 1968381097245904912
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      YES!_0: -3467304445265872440
+      YES_0: 1968381097245904912
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

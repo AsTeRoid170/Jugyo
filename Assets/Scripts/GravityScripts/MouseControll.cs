@@ -11,6 +11,7 @@ public class MouseControll : MonoBehaviour
     // カーソル関連
     public Texture2D cursorYes;
     public Texture2D cursorNo;
+    public Texture2D cursorDefault;
     // 現在のカーソルがどちらか
     private bool isYesCursor = true;
 
@@ -27,25 +28,24 @@ public class MouseControll : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-
     {
 
         // カーソル 毎フレーム判定
         CursorState();
-        
+
         // 始点設定
         if (Input.GetMouseButtonDown(0))
         {
             startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             isDragging = true;
             lineRenderer.enabled = true;// 描画も有効化
-        }
+        } //if
         // ドラッグ中は終点を更新
-        if (Input.GetMouseButton(0)&&isDragging)
+        if (Input.GetMouseButton(0) && isDragging)
         {
             endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             DrawRectangle();
-        }
+        }// if
 
         // 左クリック終了(確定)
         if (Input.GetMouseButtonUp(0) && isDragging)
@@ -53,14 +53,34 @@ public class MouseControll : MonoBehaviour
             isDragging = false;
             CreateGravityField(); // 範囲フィット生成
             lineRenderer.enabled = false; // 線は自動で消す
-        }
+        }// if
         // 右クリックで削除（キャンセル or FIFO削除）
         if (Input.GetMouseButtonDown(1))
         {
             RightClickDelete();
-        }
-       
-    }
+        }// if
+
+    }// Update
+
+    // 生成可能かどうか見る関数
+    bool CanCreateSilent()
+    {
+        // 幅と高さを算出
+        float width = Mathf.Abs(endPoint.x - startPoint.x);
+        float height = Mathf.Abs(endPoint.y - startPoint.y);
+
+        // 面積
+        float area = width * height;
+
+        // 条件
+        if (width < 1f || height < 1f) return false;
+        if (area < 1f) return false;
+        if (width > 10f || height > 10f) return false;
+        if (area > 25f) return false;
+
+        return true;
+
+    }// CanCreateSilent
 
     // 描画（線、面ではない）
     void DrawRectangle()
@@ -80,8 +100,8 @@ public class MouseControll : MonoBehaviour
             lineRenderer.SetPosition(2, p3);
             lineRenderer.SetPosition(3, p4);
             lineRenderer.SetPosition(4, p1);// 閉じる
-        }
-    }
+        }// if
+    } // DrawRectangle
 
     // 枠線を元に画像を作成,FIFO管理
     void CreateGravityField()
@@ -91,7 +111,7 @@ public class MouseControll : MonoBehaviour
         {
             Debug.LogWarning("GravityField prefab not assigend!!");
             return;
-        }
+        }// if
 
         // 中心座標を計算
         Vector2 center = (startPoint + endPoint) / 2f;
@@ -103,30 +123,37 @@ public class MouseControll : MonoBehaviour
         // 面積
         float area = width * height;
 
+        if (width < 1f || height < 1f)//最小サイズチェック 1cm 未満
+        {
+            Debug.Log("タテ、ヨコのどちらかが短すぎるッピ！");
+            lineRenderer.enabled = false;// 枠線を消す
+            isDragging = false;// 状態リセット
+            return; //生成を中止
+        }// if
 
-        if ( area < 1f )// 最小サイズチェック 1cm^2未満
+        if (area < 1f)// 最小サイズチェック 1cm^2未満
         {
             Debug.Log("画像が小さすぎるッピ！");
             lineRenderer.enabled = false;// 枠線を消す
             isDragging = false;// 状態リセット
             return; //生成を中止
-        }
+        }// if
 
-        if ( width >10f || height> 10f )// 最大サイズチェック 10cm 超過
+        if (width > 10f || height > 10f)// 最大サイズチェック 10cm 超過
         {
             Debug.Log("タテ、ヨコのどちらかが長すぎるッピ！");
             lineRenderer.enabled = false;// 枠線を消す
             isDragging = false;// 状態リセット
             return; //生成を中止
-        }
+        }// if
 
-        if ( area > 25f )// 最大面積チェック 25cm^2 超過
-        { 
+        if (area > 25f)// 最大面積チェック 25cm^2 超過
+        {
             Debug.Log("画像がデカすぎるッピ！");
             lineRenderer.enabled = false;// 枠線を消す
             isDragging = false;// 状態リセット
             return; //生成を中止
-        }
+        }// if
 
         // プレハブ生成
         GameObject field = Instantiate(GravityField, center, Quaternion.identity);
@@ -149,14 +176,14 @@ public class MouseControll : MonoBehaviour
             float scaleY = height / spriteSize.y;
 
             // 適用
-            field.transform.localScale = new Vector3(scaleX, scaleY , 1f);
+            field.transform.localScale = new Vector3(scaleX, scaleY, 1f);
         }
         else
         {
             // spriteRendererがない場合は通常通り
             // スケールを調整（プレハブの基準サイズが1×１と仮定）
             field.transform.localScale = new Vector3(width, height, 1f);
-        }
+        }// if
 
         // 画像の面積を生成直後にログに取得
         Debug.Log(" 生成した重力場の面積 :" + area);
@@ -170,10 +197,10 @@ public class MouseControll : MonoBehaviour
         {
             GameObject oldField = filedQueue.Dequeue();
             Destroy(oldField);
-        }
+        }// if
 
+    }// CreateGravityField
 
-    }
     // 枠線を削除
     void RightClickDelete()
     {
@@ -184,7 +211,7 @@ public class MouseControll : MonoBehaviour
             isDragging = false; //　状態リセット
             lineRenderer.enabled = false; // 描画も非表示に
             return;
-        }
+        }// if
 
         // 生成済みGravityFieldをFIFOで削除
         if (filedQueue.Count > 0)
@@ -193,21 +220,45 @@ public class MouseControll : MonoBehaviour
 
             // 削除する重力場の面積を求める
             var area = oldField.GetComponent<GravityField>();
-            if(area != null)
+            if (area != null)
             {
                 Debug.Log("削除する重力場の面積 = " + area.area);
-            }
+            }// if
 
             Destroy(oldField);
 
             // 上で求めた面積の半分を四捨五入してエネルギーに足す
 
+        }// if
+
+    }//  RightClickDelete
+
+    // カーソル切り替え(CanCreateSilentを使用)
+    void CursorState()
+    {
+        // ドラッグしていない時はDEFAULTカーソル
+        if(!isDragging || !lineRenderer.enabled)
+        {
+            Cursor.SetCursor(cursorDefault, Vector2.zero, CursorMode.Auto);
+            isYesCursor = true;
+            return;
+        }// if
+
+        // CanCreateSilentを参照
+        bool canCreate = CanCreateSilent();
+
+        // 生成可能な時はYES
+        if(canCreate && !isYesCursor)
+        {
+            Cursor.SetCursor(cursorYes, Vector2.zero, CursorMode.Auto);
+            isYesCursor = true;
         }
-       
-    }
+        // 生成不可能な時はNO
+        else if(!canCreate && isYesCursor)
+        {
+            Cursor.SetCursor(cursorNo, Vector2.zero, CursorMode.Auto);
+            isYesCursor = false;
+        }// if
+    }// CursorState
 
-    // 次回やること11/20時点
-    void CursorState() { 
-
-    }
-}
+}// MouseControll
