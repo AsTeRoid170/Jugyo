@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: f13db90a028691d40b1105c88592c2ff
+guid: 2512bbd6521bee24fa0a3770a019c1c4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5829232033782830725
-    second: NO!_0
+      213: -515899083207339455
+    second: kasolu-6.png_0
+  - first:
+      213: -8101867066436238877
+    second: kasolu-6.png_1
+  - first:
+      213: 806063688000697275
+    second: kasolu-6.png_2
+  - first:
+      213: 6362419602057206961
+    second: kasolu-6.png_3
+  - first:
+      213: 7282870511066856521
+    second: kasolu-6.png_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +151,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NO!_0
+      name: kasolu-6.png_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 654
-        height: 653
+        x: 0
+        y: 52
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +166,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b79eb0199586a1fa0800000000000000
-      internalID: -5829232033782830725
+      spriteID: 1421a75648827d8f0800000000000000
+      internalID: -515899083207339455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kasolu-6.png_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 37
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e1c1af14d2609f80800000000000000
+      internalID: -8101867066436238877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kasolu-6.png_2
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 42
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb37f9d47a6bf2b00800000000000000
+      internalID: 806063688000697275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kasolu-6.png_3
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 18
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bc1a942beadb4850800000000000000
+      internalID: 6362419602057206961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kasolu-6.png_4
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 6
+        width: 35
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94cbe4db424f11560800000000000000
+      internalID: 7282870511066856521
       vertices: []
       indices: 
       edges: []
@@ -174,7 +274,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      NO!_0: -5829232033782830725
+      kasolu-6.png_0: -515899083207339455
+      kasolu-6.png_1: -8101867066436238877
+      kasolu-6.png_2: 806063688000697275
+      kasolu-6.png_3: 6362419602057206961
+      kasolu-6.png_4: 7282870511066856521
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

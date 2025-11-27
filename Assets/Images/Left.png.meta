@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: c30c26e58bb538a40bdfa07719ef00bd
+guid: 87ef849f266e27e4eaaec987480e3f55
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 599940563869400817
-    second: kasolu-neo3.png 1_0
-  - first:
-      213: -1416521677933888183
-    second: kasolu-neo3.png 1_1
+      213: 5895540913150188443
+    second: Left_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -27,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -60,7 +57,7 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 7
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -142,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: kasolu-neo3.png 1_0
+      name: Left_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 21
-        width: 43
-        height: 43
+        y: 0
+        width: 369
+        height: 369
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,30 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1fe78c3a3ca635800800000000000000
-      internalID: 599940563869400817
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: kasolu-neo3.png 1_1
-      rect:
-        serializedVersion: 2
-        x: 22
-        y: 18
-        width: 24
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 94d3c1af901875ce0800000000000000
-      internalID: -1416521677933888183
+      spriteID: b9b591f793b21d150800000000000000
+      internalID: 5895540913150188443
       vertices: []
       indices: 
       edges: []
@@ -199,8 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      kasolu-neo3.png 1_0: 599940563869400817
-      kasolu-neo3.png 1_1: -1416521677933888183
+      Left_0: 5895540913150188443
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
