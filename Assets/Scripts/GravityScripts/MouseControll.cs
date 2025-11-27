@@ -239,7 +239,7 @@ public class MouseControll : MonoBehaviour
         // ドラッグしていない時はDEFAULTカーソル
         if(!isDragging || !lineRenderer.enabled)
         {
-            Cursor.SetCursor(cursorDefault, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(cursorDefault, Vector2.zero, CursorMode.ForceSoftware);
             isYesCursor = true;
             return;
         }// if
@@ -250,13 +250,13 @@ public class MouseControll : MonoBehaviour
         // 生成可能な時はYES
         if(canCreate && !isYesCursor)
         {
-            Cursor.SetCursor(cursorYes, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(cursorYes, Vector2.zero, CursorMode.ForceSoftware);
             isYesCursor = true;
         }
         // 生成不可能な時はNO
         else if(!canCreate && isYesCursor)
         {
-            Cursor.SetCursor(cursorNo, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(cursorNo, Vector2.zero, CursorMode.ForceSoftware);
             isYesCursor = false;
         }// if
     }// CursorState
