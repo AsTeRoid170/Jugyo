@@ -23,7 +23,10 @@ public class MouseControll : MonoBehaviour
     public GameObject GravityField;
 
     // 作成した GravityField 管理（FIFO）
-    private Queue<GameObject> filedQueue = new Queue<GameObject>();
+    //private Queue<GameObject> fieldQueue = new Queue<GameObject>();
+    // Queue => Listに変更
+    private List<GameObject> fieldList = new List<GameObject>();
+    
     private const int maxFieldCount = 2;
 
     // Update is called once per frame
@@ -102,6 +105,12 @@ public class MouseControll : MonoBehaviour
             lineRenderer.SetPosition(4, p1);// 閉じる
         }// if
     } // DrawRectangle
+
+    // nullを除去するヘルパー関数（任意で作成）
+    void CleanUpFieldList()
+    {
+        fieldList.RemoveAll(item => item == null);
+    }
 
     // 枠線を元に画像を作成,FIFO管理
     void CreateGravityField()
@@ -189,15 +198,29 @@ public class MouseControll : MonoBehaviour
         Debug.Log(" 生成した重力場の面積 :" + area);
 
 
-        // FIFO上限管理
-        filedQueue.Enqueue(field);
+        CleanUpFieldList();
 
-        // 上限こえたら古いほうを削除
-        if (filedQueue.Count > maxFieldCount)
+        // 最新から削除
+        fieldList.Add(field);
+
+        //  ２つを超えたら「一番新しいもの」を削除（大きい古いものは残る）
+        while(fieldList.Count > maxFieldCount)
         {
-            GameObject oldField = filedQueue.Dequeue();
-            Destroy(oldField);
-        }// if
+            int lastIndex = fieldList.Count - 1;
+            GameObject candidate = fieldList[lastIndex];
+            fieldList.RemoveAt(lastIndex);
+
+            // すでに時間切れでDestory済みの場合はnullをスキップ
+            if (candidate == null)
+            {
+                continue;
+            }// if
+
+            // ここに来た時点で「まだ生きている一番古いGravityField」
+            Destroy(candidate);
+            break;// 1つ削除したら終了
+
+        }// while
 
     }// CreateGravityField
 
@@ -214,22 +237,32 @@ public class MouseControll : MonoBehaviour
         }// if
 
         // 生成済みGravityFieldをFIFOで削除
-        if (filedQueue.Count > 0)
+        while(fieldList.Count > 0)
         {
-            GameObject oldField = filedQueue.Dequeue();
+            int lastIndex = fieldList.Count - 1;
+            GameObject oldField = fieldList[lastIndex];
+            fieldList.RemoveAt(lastIndex);
+
+
+            // すでに寿命で消えている場合終了
+            if (oldField == null)
+            {
+                return;
+            }// if
 
             // 削除する重力場の面積を求める
             var area = oldField.GetComponent<GravityField>();
             if (area != null)
             {
                 Debug.Log("削除する重力場の面積 = " + area.area);
+                // 上で求めた面積の半分を四捨五入してエネルギーに足す
             }// if
 
             Destroy(oldField);
+            break; // １つ処理したら終了
+            
 
-            // 上で求めた面積の半分を四捨五入してエネルギーに足す
-
-        }// if
+        }// while
 
     }//  RightClickDelete
 
