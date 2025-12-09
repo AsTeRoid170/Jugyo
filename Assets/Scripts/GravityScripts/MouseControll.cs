@@ -14,6 +14,8 @@ public class MouseControll : MonoBehaviour
     public Texture2D cursorDefault;
     // 現在のカーソルがどちらか
     private bool isYesCursor = true;
+    //　現在のマウスのモードがどちらか
+    private bool mouseMode = true;
 
 
     // LineRenderer
@@ -36,6 +38,7 @@ public class MouseControll : MonoBehaviour
         // カーソル 毎フレーム判定
         CursorState();
 
+        if (mouseMode==true) { 
         // 始点設定
         if (Input.GetMouseButtonDown(0))
         {
@@ -62,6 +65,16 @@ public class MouseControll : MonoBehaviour
         {
             RightClickDelete();
         }// if
+
+        }//if
+
+        if (mouseMode == false)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                mouseMode = true;
+            }
+        }
 
     }// Update
 
@@ -166,6 +179,8 @@ public class MouseControll : MonoBehaviour
 
         // プレハブ生成
         GameObject field = Instantiate(GravityField, center, Quaternion.identity);
+        // 方向指定UIの表示
+
 
         // GravityField.csを参照(2025//11/19 に追加)
         GravityField areaInfo = field.AddComponent<GravityField>();
@@ -186,6 +201,9 @@ public class MouseControll : MonoBehaviour
 
             // 適用
             field.transform.localScale = new Vector3(scaleX, scaleY, 1f);
+
+            // 方向指定モードに変更
+            mouseMode = false;
         }
         else
         {
