@@ -14,8 +14,22 @@ public class DirectionController : MonoBehaviour
         
     }
 
-    public void OnClick()
+    public void Up()
     {
-        Debug.Log("‰Ÿ‚³‚ê‚½!");  // ƒƒO‚ğo—Í
+        Debug.Log("ã‚ª‰Ÿ‚³‚ê‚½!");
     }
+
+    public void Down()
+    {
+        Debug.Log("‰º‚ª‰Ÿ‚³‚ê‚½!");
+    }
+    public void Left()
+    {
+        Debug.Log("¶‚ª‰Ÿ‚³‚ê‚½!");
+    }
+    public void Right()
+    {
+        Debug.Log("‰E‚ª‰Ÿ‚³‚ê‚½!");
+    }
+
 }

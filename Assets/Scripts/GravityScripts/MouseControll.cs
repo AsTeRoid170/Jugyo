@@ -15,7 +15,7 @@ public class MouseControll : MonoBehaviour
     // 現在のカーソルがどちらか
     private bool isYesCursor = true;
     //　現在のマウスのモードがどちらか
-    private bool mouseMode = true;
+    [SerializeField] bool mouseMode = true;
 
 
     // LineRenderer
@@ -28,8 +28,16 @@ public class MouseControll : MonoBehaviour
     //private Queue<GameObject> fieldQueue = new Queue<GameObject>();
     // Queue => Listに変更
     private List<GameObject> fieldList = new List<GameObject>();
-    
+    public int currentList=0;
     private const int maxFieldCount = 2;
+
+    public GameObject DirectionBotton;
+
+    private void Start()
+    {
+        // 方向指定ボタンUIを非表示
+        DirectionBotton.SetActive(false);
+    }
 
     // Update is called once per frame
     void Update()
@@ -37,42 +45,57 @@ public class MouseControll : MonoBehaviour
 
         // カーソル 毎フレーム判定
         CursorState();
+        //Debug.Log(fieldList.Count);
+        // 範囲指定モード
+        if (mouseMode==true) {
 
-        if (mouseMode==true) { 
-        // 始点設定
-        if (Input.GetMouseButtonDown(0))
-        {
-            startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            isDragging = true;
-            lineRenderer.enabled = true;// 描画も有効化
-        } //if
-        // ドラッグ中は終点を更新
-        if (Input.GetMouseButton(0) && isDragging)
-        {
-            endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            DrawRectangle();
-        }// if
+            if (currentList < maxFieldCount)
+            {
+                // 始点設定
+                if (Input.GetMouseButtonDown(0))
+                {
+                    startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    isDragging = true;
+                    lineRenderer.enabled = true;// 描画も有効化
+                } //if
+                  // ドラッグ中は終点を更新
+                if (Input.GetMouseButton(0) && isDragging)
+                {
+                    endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    DrawRectangle();
+                }// if
 
-        // 左クリック終了(確定)
-        if (Input.GetMouseButtonUp(0) && isDragging)
-        {
-            isDragging = false;
-            CreateGravityField(); // 範囲フィット生成
-            lineRenderer.enabled = false; // 線は自動で消す
-        }// if
-        // 右クリックで削除（キャンセル or FIFO削除）
-        if (Input.GetMouseButtonDown(1))
-        {
-            RightClickDelete();
-        }// if
+                // 左クリック終了(確定)
+                if (Input.GetMouseButtonUp(0) && isDragging)
+                {
+                    isDragging = false;
+                    CreateGravityField(); // 範囲フィット生成
+                    lineRenderer.enabled = false; // 線は自動で消す
+                }// if
+            }
+            
+
+            // 右クリックで削除（キャンセル or FIFO削除）
+            if (Input.GetMouseButtonDown(1))
+            {
+                RightClickDelete();
+            }// if
 
         }//if
 
+        // 方向指定モード
         if (mouseMode == false)
         {
+            //
             if (Input.GetMouseButton(0))
             {
-                mouseMode = true;
+                ModeChange();
+            }
+
+            // 右クリックで作成をキャンセル
+            if (Input.GetMouseButtonDown(1))
+            {
+                ModeChange();
             }
         }
 
@@ -147,7 +170,7 @@ public class MouseControll : MonoBehaviour
 
         if (width < 1f || height < 1f)//最小サイズチェック 1cm 未満
         {
-            Debug.Log("タテ、ヨコのどちらかが短すぎるッピ！");
+            //Debug.Log("タテ、ヨコのどちらかが短すぎるッピ！");
             lineRenderer.enabled = false;// 枠線を消す
             isDragging = false;// 状態リセット
             return; //生成を中止
@@ -155,7 +178,7 @@ public class MouseControll : MonoBehaviour
 
         if (area < 1f)// 最小サイズチェック 1cm^2未満
         {
-            Debug.Log("画像が小さすぎるッピ！");
+            //Debug.Log("画像が小さすぎるッピ！");
             lineRenderer.enabled = false;// 枠線を消す
             isDragging = false;// 状態リセット
             return; //生成を中止
@@ -163,7 +186,7 @@ public class MouseControll : MonoBehaviour
 
         if (width > 10f || height > 10f)// 最大サイズチェック 10cm 超過
         {
-            Debug.Log("タテ、ヨコのどちらかが長すぎるッピ！");
+            //Debug.Log("タテ、ヨコのどちらかが長すぎるッピ！");
             lineRenderer.enabled = false;// 枠線を消す
             isDragging = false;// 状態リセット
             return; //生成を中止
@@ -171,7 +194,7 @@ public class MouseControll : MonoBehaviour
 
         if (area > 25f)// 最大面積チェック 25cm^2 超過
         {
-            Debug.Log("画像がデカすぎるッピ！");
+            //Debug.Log("画像がデカすぎるッピ！");
             lineRenderer.enabled = false;// 枠線を消す
             isDragging = false;// 状態リセット
             return; //生成を中止
@@ -201,9 +224,10 @@ public class MouseControll : MonoBehaviour
 
             // 適用
             field.transform.localScale = new Vector3(scaleX, scaleY, 1f);
+            
+            currentList++;
+            ModeChange();
 
-            // 方向指定モードに変更
-            mouseMode = false;
         }
         else
         {
@@ -213,7 +237,7 @@ public class MouseControll : MonoBehaviour
         }// if
 
         // 画像の面積を生成直後にログに取得
-        Debug.Log(" 生成した重力場の面積 :" + area);
+        //Debug.Log(" 生成した重力場の面積 :" + area);
 
 
         CleanUpFieldList();
@@ -277,6 +301,9 @@ public class MouseControll : MonoBehaviour
             }// if
 
             Destroy(oldField);
+
+            CountDown();
+
             break; // １つ処理したら終了
             
 
@@ -311,5 +338,34 @@ public class MouseControll : MonoBehaviour
             isYesCursor = false;
         }// if
     }// CursorState
+
+    // 範囲指定モードと方向指定モードの切り替え
+    void ModeChange()
+    {
+        // true→false false→true
+        mouseMode = !mouseMode;
+
+        if (mouseMode == true)
+        {
+            // 方向指定ボタンUIを非表示
+            DirectionBotton.SetActive(false);
+        }
+        if (mouseMode == false)
+        {
+            // 方向指定ボタンUIを表示
+            DirectionBotton.SetActive(true);
+        }
+
+        Debug.Log("モードチェンジ!"+mouseMode);
+    }
+
+    public void CountDown()
+    {
+        currentList--;
+        if (currentList < 0)
+        {
+            currentList = 0;
+        }
+    }
 
 }// MouseControll
