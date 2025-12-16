@@ -351,7 +351,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421669740}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c3cb6c3855c3e345891990f505ba421, type: 3}
   m_Name: 
@@ -957,8 +957,9 @@ GameObject:
   - component: {fileID: 1221364255}
   - component: {fileID: 1221364254}
   - component: {fileID: 1221364256}
+  - component: {fileID: 1221364257}
   m_Layer: 0
-  m_Name: MouseControll
+  m_Name: MouseControllSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -979,8 +980,10 @@ MonoBehaviour:
   cursorYes: {fileID: 2800000, guid: 22133fea38fec5c438623585bfb82aea, type: 3}
   cursorNo: {fileID: 2800000, guid: 2512bbd6521bee24fa0a3770a019c1c4, type: 3}
   cursorDefault: {fileID: 2800000, guid: a014d91c32f1b354a8d5a200dc762d8b, type: 3}
+  mouseMode: 1
   lineRenderer: {fileID: 1221364256}
-  GravityField: {fileID: 8758573912281983373, guid: 8c573d34e57539d4699c4d194e24d132, type: 3}
+  GravityField: {fileID: 1798698200459839300, guid: 88f802c60e99b6247b422b560fd003d9, type: 3}
+  currentList: 0
   DirectionBotton: {fileID: 129213087}
 --- !u!4 &1221364255
 Transform:
@@ -1104,6 +1107,25 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1221364257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221364253}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8634a8d3cceae94dbbeb581fae6eece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 0
+  height: 0
+  upSprite: {fileID: 21300000, guid: 7645d38ba46efe1459b8f20205d5137d, type: 3}
+  downSprite: {fileID: 21300000, guid: 6cf5a7cef692d5e4da5e52c097d557ed, type: 3}
+  leftSprite: {fileID: 21300000, guid: 87ef849f266e27e4eaaec987480e3f55, type: 3}
+  rightSprite: {fileID: 21300000, guid: bc0603a3f73eb224795367b5682a1545, type: 3}
+  lifeTime: 0
 --- !u!1 &1232440340
 GameObject:
   m_ObjectHideFlags: 0

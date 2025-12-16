@@ -17,12 +17,14 @@ public class MouseControll : MonoBehaviour
     //　現在のマウスのモードがどちらか
     [SerializeField] bool mouseMode = true;
 
-
     // LineRenderer
     public LineRenderer lineRenderer;
 
     // プレハブ(インスペクターで割り当て)
     public GameObject GravityField;
+
+    // 追加：最後に生成した GravityField への参照
+    public GameObject LastCreatedField { get; private set; }
 
     // 作成した GravityField 管理（FIFO）
     //private Queue<GameObject> fieldQueue = new Queue<GameObject>();
@@ -54,6 +56,9 @@ public class MouseControll : MonoBehaviour
                 // 始点設定
                 if (Input.GetMouseButtonDown(0))
                 {
+                    //時よとまれー
+                    Time.timeScale = 0;
+
                     startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     isDragging = true;
                     lineRenderer.enabled = true;// 描画も有効化
@@ -86,10 +91,10 @@ public class MouseControll : MonoBehaviour
         // 方向指定モード
         if (mouseMode == false)
         {
-            //
+            
             if (Input.GetMouseButton(0))
             {
-                ModeChange();
+                //mouseMode = !mouseMode;
             }
 
             // 右クリックで作成をキャンセル
@@ -202,7 +207,6 @@ public class MouseControll : MonoBehaviour
 
         // プレハブ生成
         GameObject field = Instantiate(GravityField, center, Quaternion.identity);
-        // 方向指定UIの表示
 
 
         // GravityField.csを参照(2025//11/19 に追加)
@@ -244,9 +248,10 @@ public class MouseControll : MonoBehaviour
 
         // 最新から削除
         fieldList.Add(field);
+        LastCreatedField = field;
 
         //  ２つを超えたら「一番新しいもの」を削除（大きい古いものは残る）
-        while(fieldList.Count > maxFieldCount)
+        while (fieldList.Count > maxFieldCount)
         {
             int lastIndex = fieldList.Count - 1;
             GameObject candidate = fieldList[lastIndex];
@@ -340,7 +345,7 @@ public class MouseControll : MonoBehaviour
     }// CursorState
 
     // 範囲指定モードと方向指定モードの切り替え
-    void ModeChange()
+    public void ModeChange()
     {
         // true→false false→true
         mouseMode = !mouseMode;
@@ -349,6 +354,7 @@ public class MouseControll : MonoBehaviour
         {
             // 方向指定ボタンUIを非表示
             DirectionBotton.SetActive(false);
+            Time.timeScale = 1;
         }
         if (mouseMode == false)
         {
@@ -357,14 +363,33 @@ public class MouseControll : MonoBehaviour
         }
 
         Debug.Log("モードチェンジ!"+mouseMode);
-    }
+    }//ModeChange
 
+    //
     public void CountDown()
     {
         currentList--;
         if (currentList < 0)
         {
             currentList = 0;
+        }
+    }//CountDown
+
+    public void RotateLastField(int angle)
+    {
+        if (LastCreatedField == null) return;
+
+        LastCreatedField.transform.Rotate(0, 0, angle);
+
+        // 回転角度に応じてSpriteも変更（オプション）
+        GravityField gf = LastCreatedField.GetComponent<GravityField>();
+        if (gf != null)
+        {
+            float rotationZ = LastCreatedField.transform.eulerAngles.z;
+            if (rotationZ >= 315 || rotationZ < 45) gf.SetDirectionRight();
+            else if (rotationZ >= 45 && rotationZ < 135) gf.SetDirectionUp();
+            else if (rotationZ >= 135 && rotationZ < 225) gf.SetDirectionLeft();
+            else gf.SetDirectionDown();
         }
     }
 
