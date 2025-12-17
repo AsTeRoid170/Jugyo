@@ -29,8 +29,14 @@ public class MouseControll : MonoBehaviour
     //private Queue<GameObject> fieldQueue = new Queue<GameObject>();
     // Queue => Listに変更
     private List<GameObject> fieldList = new List<GameObject>();
+    //現在の生成されている重力場の数
     public int currentList=0;
+    //現在の生成に必要なパワー
+    public float currentPower;
     private const int maxFieldCount = 2;
+    //生成に必要なパワーの初期値
+    private float maxPower = 100;
+    public float CurrentPower => currentPower;
 
     public GameObject DirectionBotton;
 
@@ -62,6 +68,10 @@ public class MouseControll : MonoBehaviour
     {
         // 方向指定ボタンUIを非表示
         DirectionBotton.SetActive(false);
+
+        // 初期化
+        currentPower = maxPower;
+
     }
 
     // Update is called once per frame
@@ -79,8 +89,6 @@ public class MouseControll : MonoBehaviour
                 // 始点設定
                 if (Input.GetMouseButtonDown(0))
                 {
-                    
-
                     startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     isDragging = true;
                     lineRenderer.enabled = true;// 描画も有効化
@@ -121,20 +129,26 @@ public class MouseControll : MonoBehaviour
         if (mouseMode == false)
         {
             Time.timeScale = 0;
-            if (Input.GetMouseButton(0))
-            {
-                //mouseMode = !mouseMode;
-            }
-
             // 右クリックで作成をキャンセル
             if (Input.GetMouseButtonDown(1))
             {
+                RightClickDelete();
                 ModeChange();
                 Time.timeScale = 1;
             }
         }
 
     }// Update
+    private void FixedUpdate()
+    {
+
+        // 12/18に直す箇所（時間が早すぎるのでタイマーに）
+        currentPower++;
+        if (currentPower > maxPower)
+        {
+            currentPower = maxPower;
+        }
+    }
 
     // 生成可能かどうか見る関数
     bool CanCreateSilent()
@@ -145,12 +159,14 @@ public class MouseControll : MonoBehaviour
 
         // 面積
         float area = width * height;
+        float limitArea = currentPower / 2;
 
         // 条件
         if (width < 1f || height < 1f) return false;
         if (area < 1f) return false;
         if (width > 10f || height > 10f) return false;
         if (area > 25f) return false;
+        if (area > limitArea) return false;
 
         return true;
 
@@ -234,6 +250,13 @@ public class MouseControll : MonoBehaviour
             isDragging = false;// 状態リセット
             return; //生成を中止
         }// if
+
+        if ( currentPower < area*4)
+        {
+            lineRenderer.enabled = false;// 枠線を消す
+            isDragging = false;// 状態リセット
+            return; //生成を中止
+        }//if
 
         // プレハブ生成
         GameObject field = Instantiate(GravityField, center, Quaternion.identity);
@@ -333,6 +356,9 @@ public class MouseControll : MonoBehaviour
             {
                 Debug.Log("削除する重力場の面積 = " + area.area);
                 // 上で求めた面積の半分を四捨五入してエネルギーに足す
+                currentPower = currentPower + Mathf.Round(area.area);
+                Debug.Log("削除後の現在のエネルギー残量 = " + currentPower);
+                Debug.Log("削除で戻ったエネルギー = "+ Mathf.Round(area.area));
             }// if
 
             Destroy(oldField);
@@ -391,12 +417,13 @@ public class MouseControll : MonoBehaviour
         {
             // 方向指定ボタンUIを表示
             DirectionBotton.SetActive(true);
+            Debug.Log("現在のエネルギー残量 = "+currentPower);
         }
 
         Debug.Log("モードチェンジ!"+mouseMode);
     }//ModeChange
 
-    //
+    //現在の生成されている重力場のカウントを減らす
     public void CountDown()
     {
         currentList--;
@@ -430,6 +457,9 @@ public class MouseControll : MonoBehaviour
             newGF.width = orgGF.width;
             newGF.height = orgGF.height;
             // 必要なら方向情報なども設定
+
+            currentPower = currentPower - Mathf.Round(newGF.area * 2f);
+            Debug.Log("生成後のエネルギー残量 = "+currentPower);
         }
 
         // 管理リストに入れる場合
@@ -440,7 +470,5 @@ public class MouseControll : MonoBehaviour
 
         return newField;
     }// CreateDirectionalField
-
-
 
 }// MouseControll
