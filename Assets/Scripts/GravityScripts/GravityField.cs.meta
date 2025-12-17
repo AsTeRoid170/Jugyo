@@ -4,10 +4,10 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - upSprite: {fileID: 21300000, guid: 7645d38ba46efe1459b8f20205d5137d, type: 3}
-  - downSprite: {fileID: 21300000, guid: 6cf5a7cef692d5e4da5e52c097d557ed, type: 3}
-  - leftSprite: {fileID: 21300000, guid: 87ef849f266e27e4eaaec987480e3f55, type: 3}
-  - rightSprite: {fileID: 21300000, guid: bc0603a3f73eb224795367b5682a1545, type: 3}
+  - upSprite: {instanceID: 0}
+  - downSprite: {instanceID: 0}
+  - leftSprite: {instanceID: 0}
+  - rightSprite: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

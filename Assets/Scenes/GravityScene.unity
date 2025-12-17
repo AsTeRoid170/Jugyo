@@ -957,7 +957,6 @@ GameObject:
   - component: {fileID: 1221364255}
   - component: {fileID: 1221364254}
   - component: {fileID: 1221364256}
-  - component: {fileID: 1221364257}
   m_Layer: 0
   m_Name: MouseControllSystem
   m_TagString: Untagged
@@ -985,6 +984,10 @@ MonoBehaviour:
   GravityField: {fileID: 1798698200459839300, guid: 88f802c60e99b6247b422b560fd003d9, type: 3}
   currentList: 0
   DirectionBotton: {fileID: 129213087}
+  prefabUp: {fileID: 8743355642387453503, guid: 16ba1059139bc5a45a1dad5de67a95a7, type: 3}
+  prefabDown: {fileID: 3978778079213368818, guid: 9e3b519ce783f2c4c8a85884556fa19e, type: 3}
+  prefabLeft: {fileID: 6139016498513800995, guid: f5d73604e201cdc4fbd09f3716683014, type: 3}
+  prefabRight: {fileID: 8758573912281983373, guid: 8c573d34e57539d4699c4d194e24d132, type: 3}
 --- !u!4 &1221364255
 Transform:
   m_ObjectHideFlags: 0
@@ -1107,25 +1110,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &1221364257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1221364253}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8634a8d3cceae94dbbeb581fae6eece, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 0
-  height: 0
-  upSprite: {fileID: 21300000, guid: 7645d38ba46efe1459b8f20205d5137d, type: 3}
-  downSprite: {fileID: 21300000, guid: 6cf5a7cef692d5e4da5e52c097d557ed, type: 3}
-  leftSprite: {fileID: 21300000, guid: 87ef849f266e27e4eaaec987480e3f55, type: 3}
-  rightSprite: {fileID: 21300000, guid: bc0603a3f73eb224795367b5682a1545, type: 3}
-  lifeTime: 0
 --- !u!1 &1232440340
 GameObject:
   m_ObjectHideFlags: 0

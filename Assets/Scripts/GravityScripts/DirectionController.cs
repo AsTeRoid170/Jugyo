@@ -24,39 +24,27 @@ public class DirectionController : MonoBehaviour
 
     public void Up()
     {
-        Debug.Log("上が押された!");
-        mouseControll.RotateLastField(90);
+        //Debug.Log("上が押された!");
+        mouseControll.CreateDirectionalField("Up");
         mouseControll.ModeChange();
     }
 
     public void Down()
     {
-        Debug.Log("下が押された!");
-        mouseControll.RotateLastField(-90);
+        //Debug.Log("下が押された!");
+        mouseControll.CreateDirectionalField("Down");
         mouseControll.ModeChange();
     }
     public void Left()
     {
-        Debug.Log("左が押された!");
-
-        // 直近に生成されたフィールドを取得
-        if (mouseControll == null) return;
-
-        GameObject field = mouseControll.LastCreatedField;
-        if (field == null) return;
-
-        GravityField gf = field.GetComponent<GravityField>();
-        if (gf == null) return;
-
-        // 向きを左に変更
-        gf.SetDirectionLeft();
-
+        //Debug.Log("左が押された!");
+        mouseControll.CreateDirectionalField("Left");
         mouseControll.ModeChange();
     }
     public void Right()
     {
-        Debug.Log("右が押された!");
-        mouseControll.RotateLastField(0);
+        //Debug.Log("右が押された!");
+        mouseControll.CreateDirectionalField("Right");
         mouseControll.ModeChange();
     }
 

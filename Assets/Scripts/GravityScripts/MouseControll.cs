@@ -23,8 +23,7 @@ public class MouseControll : MonoBehaviour
     // プレハブ(インスペクターで割り当て)
     public GameObject GravityField;
 
-    // 追加：最後に生成した GravityField への参照
-    public GameObject LastCreatedField { get; private set; }
+   
 
     // 作成した GravityField 管理（FIFO）
     //private Queue<GameObject> fieldQueue = new Queue<GameObject>();
@@ -34,6 +33,30 @@ public class MouseControll : MonoBehaviour
     private const int maxFieldCount = 2;
 
     public GameObject DirectionBotton;
+
+    // 方向別プレハブを Inspector から割り当て
+    public GameObject prefabUp;
+    public GameObject prefabDown;
+    public GameObject prefabLeft;
+    public GameObject prefabRight;
+
+    // 追加：最後に生成した GravityField への参照
+    public GameObject LastCreatedField { get; private set; }
+
+
+    // 方向ごとに対応するプレハブを返す
+    GameObject GetPrefabByDirection(string dir)
+    {
+        switch (dir)
+        {
+            case "Up": return prefabUp;
+            case "Down": return prefabDown;
+            case "Left": return prefabLeft;
+            case "Right": return prefabRight;
+            default: return GravityField;   // デフォルト
+        }
+    }
+
 
     private void Start()
     {
@@ -56,8 +79,7 @@ public class MouseControll : MonoBehaviour
                 // 始点設定
                 if (Input.GetMouseButtonDown(0))
                 {
-                    //時よとまれー
-                    Time.timeScale = 0;
+                    
 
                     startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     isDragging = true;
@@ -66,13 +88,20 @@ public class MouseControll : MonoBehaviour
                   // ドラッグ中は終点を更新
                 if (Input.GetMouseButton(0) && isDragging)
                 {
+                    //時よとまれー
+                    Time.timeScale = 0;
                     endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     DrawRectangle();
                 }// if
+                else
+                {
+                    Time.timeScale = 1;
+                }
 
                 // 左クリック終了(確定)
                 if (Input.GetMouseButtonUp(0) && isDragging)
                 {
+                    Time.timeScale = 1;
                     isDragging = false;
                     CreateGravityField(); // 範囲フィット生成
                     lineRenderer.enabled = false; // 線は自動で消す
@@ -85,13 +114,13 @@ public class MouseControll : MonoBehaviour
             {
                 RightClickDelete();
             }// if
-
+            
         }//if
 
         // 方向指定モード
         if (mouseMode == false)
         {
-            
+            Time.timeScale = 0;
             if (Input.GetMouseButton(0))
             {
                 //mouseMode = !mouseMode;
@@ -101,6 +130,7 @@ public class MouseControll : MonoBehaviour
             if (Input.GetMouseButtonDown(1))
             {
                 ModeChange();
+                Time.timeScale = 1;
             }
         }
 
@@ -307,6 +337,7 @@ public class MouseControll : MonoBehaviour
 
             Destroy(oldField);
 
+            //重力場の現生成数を減らす
             CountDown();
 
             break; // １つ処理したら終了
@@ -375,22 +406,41 @@ public class MouseControll : MonoBehaviour
         }
     }//CountDown
 
-    public void RotateLastField(int angle)
+    // 指定方向のプレハブを、LastCreatedField と同じ位置・サイズで生成
+    public GameObject CreateDirectionalField(string dir)
     {
-        if (LastCreatedField == null) return;
+        if (LastCreatedField == null) return null;
 
-        LastCreatedField.transform.Rotate(0, 0, angle);
+        GameObject template = GetPrefabByDirection(dir);
+        if (template == null) return null;
 
-        // 回転角度に応じてSpriteも変更（オプション）
-        GravityField gf = LastCreatedField.GetComponent<GravityField>();
-        if (gf != null)
+        Transform orgTr = LastCreatedField.transform;
+        GravityField orgGF = LastCreatedField.GetComponent<GravityField>();
+
+        // プレハブを同じ位置・回転で生成
+        GameObject newField = Instantiate(template, orgTr.position, orgTr.rotation);
+
+        // スケールもコピー（面積・見た目を完全一致させる）
+        newField.transform.localScale = orgTr.localScale;
+
+        // GravityField 情報コピー
+        GravityField newGF = newField.GetComponent<GravityField>();
+        if (newGF != null && orgGF != null)
         {
-            float rotationZ = LastCreatedField.transform.eulerAngles.z;
-            if (rotationZ >= 315 || rotationZ < 45) gf.SetDirectionRight();
-            else if (rotationZ >= 45 && rotationZ < 135) gf.SetDirectionUp();
-            else if (rotationZ >= 135 && rotationZ < 225) gf.SetDirectionLeft();
-            else gf.SetDirectionDown();
+            newGF.width = orgGF.width;
+            newGF.height = orgGF.height;
+            // 必要なら方向情報なども設定
         }
-    }
+
+        // 管理リストに入れる場合
+        RightClickDelete();
+        fieldList.Add(newField);
+        LastCreatedField = newField;
+        currentList++;
+
+        return newField;
+    }// CreateDirectionalField
+
+
 
 }// MouseControll
