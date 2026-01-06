@@ -9,6 +9,8 @@ public class playerMove : MonoBehaviour
     Rigidbody2D rb;
     bool isGrounded = false;
     public CameraController cameraController; // カメラ制御クラス
+    //重力の強さ
+    private float defG = 9.81f;
 
     public float speed;        
     public GroundCheck ground;
@@ -121,5 +123,28 @@ public class playerMove : MonoBehaviour
 
     }
 
+    public void GravityDirectionControl(int gravityDirection)
+    {
+        switch (gravityDirection)
+        {
 
+            case 1:
+                Physics2D.gravity = new Vector2(-defG, 0f);
+                break;
+            case 2:
+                Physics2D.gravity = new Vector2(defG, 0f);
+                break;
+            case 3:
+                Debug.Log("重力変更　上");
+                Physics2D.gravity = new Vector2(0f, defG);
+                break;
+            case 4:
+                Physics2D.gravity = new Vector2(0f, -defG * 2);
+                break;
+            default:
+                Physics2D.gravity = new Vector2(0f, -defG);
+                break;
+
+        }
+    }
 }
