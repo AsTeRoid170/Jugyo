@@ -102,26 +102,6 @@ public class playerMove : MonoBehaviour
         }
     }
 
-    // 地面判定
-    /*void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            isGrounded = true;
-            animator.ResetTrigger("Jump"); // 着地でジャンプアニメーション終了
-            animator.SetBool("IsGrounded", true); // 状態を維持する場合
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            isGrounded = false;
-            animator.SetBool("IsGrounded", false); // 空中状態
-        }
-    }*/
-
     void SkillAttack()
     {
         Debug.Log("Skill Used!");
