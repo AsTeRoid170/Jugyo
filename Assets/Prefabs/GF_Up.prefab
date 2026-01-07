@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 307534826729104210}
   - component: {fileID: 9003706148949305783}
   - component: {fileID: -138335247983585912}
-  - component: {fileID: 2302648383117309371}
   m_Layer: 0
   m_Name: GF_Up
   m_TagString: GravityField
@@ -110,6 +109,7 @@ MonoBehaviour:
   rightSprite: {fileID: 0}
   lifeTime: 0
   gravityDirection: 3
+  fieldGravityDirection: {x: 0, y: 1}
 --- !u!61 &-138335247983585912
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -156,15 +156,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.69, y: 3.69}
   m_EdgeRadius: 0
---- !u!114 &2302648383117309371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8743355642387453503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 040202ce4d7d42e4ca34411fd8c138a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

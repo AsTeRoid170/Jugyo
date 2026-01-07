@@ -21,8 +21,8 @@ public class GravityField : MonoBehaviour
     private MouseControll mouseControll;
     private float defG = 9.81f;
 
-    //どの方向の重力場なのか判別する
-    [SerializeField]int gravityDirection;
+    // このフィールドが与える重力の向き（インスペクタで設定）
+    [SerializeField]Vector2 fieldGravityDirection = new Vector2(0, -1 * 2);
 
     public float area => width * height;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -64,48 +64,33 @@ public class GravityField : MonoBehaviour
 
     }
 
-    /*private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if (collision.CompareTag("Player"))
+        // Player に触れたときだけ処理
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("Playerが重力場に入った！");
-            // ここにコメント表示処理（UIテキスト更新など）を書く
-
-            switch (gravityDirection)
+            playerMove pm = other.GetComponent<playerMove>();
+            if (pm != null)
             {
-                
-                case 1:
-                    Physics2D.gravity = new Vector2(-defG/2, 0f);
-                    break;
-                case 2:
-                    Physics2D.gravity = new Vector2(defG/2, 0f);
-                    break;
-                case 3:
-                    Debug.Log("重力変更　上");
-                    //Physics.gravity = new Vector3(0, 9.81f, 0);
-                    Physics2D.gravity = new Vector2(0f, defG);
-                    break;
-                case 4:
-                    Physics2D.gravity = new Vector2(0f, -defG*2);
-                    break;
-                
+                pm.SetGravityDirection(fieldGravityDirection);
             }
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if (collision.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("Playerが重力場を離れた！");
-            // ここにコメント表示処理（UIテキスト更新など）を書く
-
-            //Playerの重力方向を元に戻す
-            Physics2D.gravity = new Vector2(0f, -9.81f);
+            playerMove pm = other.GetComponent<playerMove>();
+            if (pm != null)
+            {
+                // 例: 画面下方向に戻す
+                pm.SetGravityDirection(new Vector2(0, -1));
+            }
         }
-    }*/
+    }
 
-   
+
 
 }//GravityField
 

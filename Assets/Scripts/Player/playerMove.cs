@@ -57,7 +57,7 @@ public class playerMove : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
-            SkillAttackNo();
+            SkillAttackEnd();
         }
         // 空中判定（ジャンプ中・落下中）
         animator.SetBool("IsGrounded", isGrounded);
@@ -123,18 +123,18 @@ public class playerMove : MonoBehaviour
     {
         Debug.Log("Skill Used!");
         animator.SetBool("Skill", true);
-        rb.gravityScale = 0f;
+        //rb.gravityScale = 0f;
 
        
 
     }
 
-    void SkillAttackNo() {
+    void SkillAttackEnd() {
 
         Debug.Log("Skill");
         canMove = true;
         animator.SetBool("Skill", false);
-        rb.gravityScale = 1f;
+        //rb.gravityScale = 1f;
 
     }
 
