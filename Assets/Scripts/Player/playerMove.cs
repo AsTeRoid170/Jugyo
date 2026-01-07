@@ -9,6 +9,8 @@ public class playerMove : MonoBehaviour
     Rigidbody2D rb;
     bool isGrounded = false;
     public CameraController cameraController; // カメラ制御クラス
+
+    private Vector2 gravityDirection = new Vector2(0, -1);
     //重力の強さ
     private float defG = 9.81f;
 
@@ -22,6 +24,8 @@ public class playerMove : MonoBehaviour
         Application.targetFrameRate = 60;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0f;
+
         // カメラ初期位置
         cameraController.SetPosition(transform.position);
     }
@@ -81,6 +85,10 @@ public class playerMove : MonoBehaviour
         cameraController.SetPosition(transform.position);
     }//Update
 
+    public void SetGravityDirection(Vector2 dir)
+    {
+        gravityDirection = dir.normalized;
+    }
     private void FixedUpdate()
     {
         // ジャンプ処理
@@ -102,6 +110,13 @@ public class playerMove : MonoBehaviour
             isGrounded = false;
             animator.SetBool("IsGrounded", false); // 空中状態
         }
+
+
+        Vector2 dir = gravityDirection.normalized;
+        Vector2 g = dir * defG;
+
+        rb.AddForce(g, ForceMode2D.Force);
+
     }
 
     void SkillAttack()

@@ -64,7 +64,7 @@ public class GravityField : MonoBehaviour
 
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    /*private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
@@ -75,10 +75,10 @@ public class GravityField : MonoBehaviour
             {
                 
                 case 1:
-                    Physics2D.gravity = new Vector2(-defG, 0f);
+                    Physics2D.gravity = new Vector2(-defG/2, 0f);
                     break;
                 case 2:
-                    Physics2D.gravity = new Vector2(defG, 0f);
+                    Physics2D.gravity = new Vector2(defG/2, 0f);
                     break;
                 case 3:
                     Debug.Log("重力変更　上");
@@ -103,7 +103,7 @@ public class GravityField : MonoBehaviour
             //Playerの重力方向を元に戻す
             Physics2D.gravity = new Vector2(0f, -9.81f);
         }
-    }
+    }*/
 
    
 
