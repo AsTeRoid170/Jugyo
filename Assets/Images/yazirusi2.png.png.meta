@@ -1,0 +1,350 @@
+fileFormatVersion: 2
+guid: a851aa53a9ef7db448fcbae26f81e96f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3201611955849154292
+    second: yazirusi2.png_0
+  - first:
+      213: -8853442173476059431
+    second: yazirusi2.png_1
+  - first:
+      213: 4725515213102600568
+    second: yazirusi2.png_2
+  - first:
+      213: -4207416822289358871
+    second: yazirusi2.png_3
+  - first:
+      213: 660243140853015852
+    second: yazirusi2.png_4
+  - first:
+      213: -3466809589464292582
+    second: yazirusi2.png_5
+  - first:
+      213: 4150321181928998881
+    second: yazirusi2.png_6
+  - first:
+      213: -7868294959044382224
+    second: yazirusi2.png_7
+  - first:
+      213: -7436316864243427949
+    second: yazirusi2.png_8
+  - first:
+      213: 626446380821609665
+    second: yazirusi2.png_9
+  - first:
+      213: 4906434861034538580
+    second: yazirusi2.png_10
+  - first:
+      213: 8402391339270434775
+    second: yazirusi2.png_11
+  - first:
+      213: -1092955235107673327
+    second: yazirusi2.png_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: yazirusi2.png_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c01b7f693e69193d0800000000000000
+      internalID: -3201611955849154292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yazirusi2.png_1
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 128
+        width: 170
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: 84, y: 31}
+        - {x: 64, y: 46}
+        - {x: 35, y: 58}
+        - {x: 0, y: 64}
+        - {x: -31, y: 59}
+        - {x: -59, y: 48}
+        - {x: -83, y: 31}
+        - {x: 0, y: -52}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d64f723041422580800000000000000
+      internalID: -8853442173476059431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yazirusi2.png_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 43
+        width: 128
+        height: 170
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: -31, y: 84}
+        - {x: -48, y: 62}
+        - {x: -58, y: 33}
+        - {x: -64, y: 0}
+        - {x: -57, y: -39}
+        - {x: -47, y: -62}
+        - {x: -31, y: -83}
+        - {x: 51, y: 1}
+      tessellationDetail: 0
+      bones: []
+      spriteID: c25aee373a7a92900800000000000000
+      internalID: 660243140853015852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yazirusi2.png_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 43
+        width: 128
+        height: 170
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: 47, y: -65}
+        - {x: 59, y: -37}
+        - {x: 64, y: 0}
+        - {x: 59, y: 35}
+        - {x: 46, y: 66}
+        - {x: 32, y: 83}
+        - {x: -53, y: 0}
+        - {x: 31, y: -83}
+      tessellationDetail: 0
+      bones: []
+      spriteID: a13201cdb0b63efc0800000000000000
+      internalID: -3466809589464292582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yazirusi2.png_10
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 0
+        width: 170
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape:
+      - - {x: 0, y: -64}
+        - {x: 28, y: -60}
+        - {x: 60, y: -49}
+        - {x: 85, y: -31}
+        - {x: 0, y: 49}
+        - {x: -84, y: -32}
+        - {x: -64, y: -46}
+        - {x: -35, y: -59}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4568e8db288271440800000000000000
+      internalID: 4906434861034538580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 3437b209566392347b902739454b661d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      yazirusi2.png_0: -3201611955849154292
+      yazirusi2.png_1: -8853442173476059431
+      yazirusi2.png_10: 4906434861034538580
+      yazirusi2.png_11: 8402391339270434775
+      yazirusi2.png_12: -1092955235107673327
+      yazirusi2.png_2: 4725515213102600568
+      yazirusi2.png_3: -4207416822289358871
+      yazirusi2.png_4: 660243140853015852
+      yazirusi2.png_5: -3466809589464292582
+      yazirusi2.png_6: 4150321181928998881
+      yazirusi2.png_7: -7868294959044382224
+      yazirusi2.png_8: -7436316864243427949
+      yazirusi2.png_9: 626446380821609665
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
