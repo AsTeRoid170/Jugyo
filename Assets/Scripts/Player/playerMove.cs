@@ -73,7 +73,8 @@ public class playerMove : MonoBehaviour
         }
         
         // 落下状態
-        bool isFalling = !isGrounded && rb.linearVelocity.y < -0.1f;
+        // bool isFalling = !isGrounded && rb.linearVelocity.y < -0.1f;
+        bool isFalling = !isGrounded ;
         animator.SetBool("IsFalling", isFalling);
 
         bool isMoving = Mathf.Abs(moveX) > 0.01f;
@@ -95,13 +96,14 @@ public class playerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            animator.SetTrigger("Jump"); // ジャンプアニメーション開始
+            Debug.Log("Jump Now!");
+            animator.SetBool("Jump",true); // ジャンプアニメーション開始
         }
 
         if (isGround == true /*collision.gameObject.layer == LayerMask.NameToLayer("Ground")*/)
         {
             isGrounded = true;
-            animator.ResetTrigger("Jump"); // 着地でジャンプアニメーション終了
+            animator.SetBool("Jump", true); // 着地でジャンプアニメーション終了
             animator.SetBool("IsGrounded", true); // 状態を維持する場合
         }
 
