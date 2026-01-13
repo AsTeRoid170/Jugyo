@@ -75,6 +75,15 @@ public class GravityField : MonoBehaviour
                 pm.SetGravityDirection(fieldGravityDirection);
             }
         }
+
+        if (other.CompareTag("MoveObject"))
+        {
+            ObjectMove pm = other.GetComponent<ObjectMove>();
+            if (pm != null)
+            {
+                pm.SetGravityDirection(fieldGravityDirection);
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -88,7 +97,18 @@ public class GravityField : MonoBehaviour
                 pm.SetGravityDirection(new Vector2(0, -1));
             }
         }
+
+        if (other.CompareTag("MoveObject"))
+        {
+            ObjectMove pm = other.GetComponent<ObjectMove>();
+            if (pm != null)
+            {
+                // —á: ‰æ–Ê‰º•ûŒü‚É–ß‚·
+                pm.SetGravityDirection(new Vector2(0, -1));
+            }
+        }
     }
+
 
 
 
