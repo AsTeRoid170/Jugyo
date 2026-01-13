@@ -97,13 +97,13 @@ public class playerMove : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             Debug.Log("Jump Now!");
-            animator.SetBool("Jump",true); // ジャンプアニメーション開始
+            //animator.SetBool("Jump",true); // ジャンプアニメーション開始
         }
 
         if (isGround == true /*collision.gameObject.layer == LayerMask.NameToLayer("Ground")*/)
         {
             isGrounded = true;
-            animator.SetBool("Jump", true); // 着地でジャンプアニメーション終了
+            //animator.SetBool("Jump", true); // 着地でジャンプアニメーション終了
             animator.SetBool("IsGrounded", true); // 状態を維持する場合
         }
 
