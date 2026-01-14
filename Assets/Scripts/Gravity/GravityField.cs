@@ -19,11 +19,10 @@ public class GravityField : MonoBehaviour
     [SerializeField] float lifeTime;
 
     private MouseControll mouseControll;
-    private float defG = 9.81f;
 
     // このフィールドが与える重力の向き（インスペクタで設定）
     [SerializeField]Vector2 fieldGravityDirection = new Vector2(0, -1 * 2);
-
+    [SerializeField] int gdc;
     public float area => width * height;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -73,6 +72,7 @@ public class GravityField : MonoBehaviour
             if (pm != null)
             {
                 pm.SetGravityDirection(fieldGravityDirection);
+                pm.GravityDirectionControl(gdc);
             }
         }
 
