@@ -62,7 +62,7 @@ public class playerMove : MonoBehaviour
         // 空中判定（ジャンプ中・落下中）
         animator.SetBool("IsGrounded", isGrounded);
 
-        if (Input.GetMouseButtonDown(1))  // 0は左クリック
+        /*if (Input.GetMouseButtonDown(1))  // 0は左クリック
         {
             animator.SetBool("Turn", true);
            
@@ -70,10 +70,9 @@ public class playerMove : MonoBehaviour
         if (Input.GetMouseButtonUp(1))
         {
             animator.SetBool("Turn", false);
-        }
+        }*/
         
         // 落下状態
-        // bool isFalling = !isGrounded && rb.linearVelocity.y < -0.1f;
         bool isFalling = !isGrounded ;
         animator.SetBool("IsFalling", isFalling);
 
@@ -97,17 +96,17 @@ public class playerMove : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             Debug.Log("Jump Now!");
-            //animator.SetBool("Jump",true); // ジャンプアニメーション開始
+            
         }
 
-        if (isGround == true /*collision.gameObject.layer == LayerMask.NameToLayer("Ground")*/)
+        if (isGround == true)
         {
             isGrounded = true;
-            //animator.SetBool("Jump", true); // 着地でジャンプアニメーション終了
+            
             animator.SetBool("IsGrounded", true); // 状態を維持する場合
         }
 
-        if (isGround == false /*collision.gameObject.layer == LayerMask.NameToLayer("Ground")*/)
+        if (isGround == false)
         {
             isGrounded = false;
             animator.SetBool("IsGrounded", false); // 空中状態
@@ -142,14 +141,17 @@ public class playerMove : MonoBehaviour
 
     public void GravityDirectionControl(int gravityDirection)
     {
+        animator.SetBool("Turn", true);
         switch (gravityDirection)
         {
 
             case 1:
                 Physics2D.gravity = new Vector2(-defG, 0f);
+                Debug.Log("重力変更　左");
                 break;
             case 2:
                 Physics2D.gravity = new Vector2(defG, 0f);
+                Debug.Log("重力変更　右");
                 break;
             case 3:
                 Debug.Log("重力変更　上");
@@ -157,9 +159,11 @@ public class playerMove : MonoBehaviour
                 break;
             case 4:
                 Physics2D.gravity = new Vector2(0f, -defG * 2);
+                Debug.Log("重力変更　下");
                 break;
             default:
                 Physics2D.gravity = new Vector2(0f, -defG);
+                animator.SetBool("IsGrounded", true); // 状態を維持する場合
                 break;
 
         }
