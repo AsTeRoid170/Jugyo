@@ -22,6 +22,8 @@ public class playerMove : MonoBehaviour
     public GroundCheck ground;
     [SerializeField] bool isGround = false;
 
+    public MouseControll mouseControll;
+
     void Start()
     {
 
@@ -55,8 +57,7 @@ public class playerMove : MonoBehaviour
 
         transform.position += new Vector3(moveX * currentSpeed * Time.deltaTime, 0f, 0f);
 
-
-
+        
         if (Input.GetMouseButtonDown(0))  // 0は左クリック
         {
             SkillAttack(); // 仮のスキル発動メソッド
@@ -65,6 +66,7 @@ public class playerMove : MonoBehaviour
         {
             SkillAttackEnd();
         }
+
         // 空中判定（ジャンプ中・落下中）
         animator.SetBool("IsGrounded", isGrounded);
 
@@ -128,11 +130,13 @@ public class playerMove : MonoBehaviour
 
     void SkillAttack()
     {
-        Debug.Log("Skill Used!");
-        animator.SetBool("Skill", true);
-        //rb.gravityScale = 0f;
-
-
+        // 重力場が最大数に達していないときだけ
+        if (!mouseControll.checkMaxField)
+        {
+            Debug.Log("Skill Used!");
+            animator.SetBool("Skill", true);
+            //rb.gravityScale = 0f;
+        }
 
     }
 
@@ -148,7 +152,7 @@ public class playerMove : MonoBehaviour
 
     public void GravityDirectionControl(int gravityDirection)
     {
-        //animator.SetBool("Turn", true);
+        animator.SetBool("Turn", true);
         switch (gravityDirection)
         {
 
@@ -173,7 +177,8 @@ public class playerMove : MonoBehaviour
             default:
                 // Physics2D.gravity = new Vector2(0f, -defG);
                 animator.SetBool("IsGrounded", true); // 状態を維持する場合
-                
+                Debug.Log("重力変更　DEFAULT");
+                animator.SetBool("Turn", false);
                 break;
 
         }

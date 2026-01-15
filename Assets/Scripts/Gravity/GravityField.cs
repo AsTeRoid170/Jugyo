@@ -95,6 +95,7 @@ public class GravityField : MonoBehaviour
             {
                 // —á: ‰æ–Ê‰º•ûŒü‚É–ß‚·
                 pm.SetGravityDirection(new Vector2(0, -1));
+                pm.GravityDirectionControl(0);
             }
         }
 

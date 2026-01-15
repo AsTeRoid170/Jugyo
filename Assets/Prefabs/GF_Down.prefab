@@ -108,8 +108,8 @@ MonoBehaviour:
   leftSprite: {fileID: 0}
   rightSprite: {fileID: 0}
   lifeTime: 0
-  gravityDirection: 4
   fieldGravityDirection: {x: 0, y: -2}
+  gdc: 4
 --- !u!61 &5185222027078427488
 BoxCollider2D:
   m_ObjectHideFlags: 0

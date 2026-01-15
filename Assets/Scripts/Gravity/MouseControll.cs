@@ -16,23 +16,24 @@ public class MouseControll : MonoBehaviour
     private bool isYesCursor = true;
     //　現在のマウスのモードがどちらか
     [SerializeField] bool mouseMode = true;
-
+    //  重力場の個数が最大数かどうか trueの場合、最大数に達している
+    public bool checkMaxField = false;
     // LineRenderer
     public LineRenderer lineRenderer;
 
     // プレハブ(インスペクターで割り当て)
     public GameObject GravityField;
 
-   
+
 
     // 作成した GravityField 管理（FIFO）
     //private Queue<GameObject> fieldQueue = new Queue<GameObject>();
     // Queue => Listに変更
     private List<GameObject> fieldList = new List<GameObject>();
     //現在の生成されている重力場の数
-    public int currentList=0;
+    private int currentList = 0;
     //現在の生成に必要なパワー
-    public float currentPower;
+    private float currentPower;
     private const int maxFieldCount = 2;
     //生成に必要なパワーの初期値
     private float maxPower = 100;
@@ -82,9 +83,9 @@ public class MouseControll : MonoBehaviour
         CursorState();
         //Debug.Log(fieldList.Count);
         // 範囲指定モード
-        if (mouseMode==true) {
+        if (mouseMode == true) {
 
-            if (currentList < maxFieldCount)
+            if (checkMaxField==false)
             {
                 // 始点設定
                 if (Input.GetMouseButtonDown(0))
@@ -97,7 +98,7 @@ public class MouseControll : MonoBehaviour
                 if (Input.GetMouseButton(0) && isDragging)
                 {
                     //時よとまれー
-                    Time.timeScale = 0;
+                    Time.timeScale = 0.05f;
                     endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     DrawRectangle();
                 }// if
@@ -115,14 +116,14 @@ public class MouseControll : MonoBehaviour
                     lineRenderer.enabled = false; // 線は自動で消す
                 }// if
             }
-            
+
 
             // 右クリックで削除（キャンセル or FIFO削除）
             if (Input.GetMouseButtonDown(1))
             {
                 RightClickDelete();
             }// if
-            
+
         }//if
 
         // 方向指定モード
@@ -251,7 +252,7 @@ public class MouseControll : MonoBehaviour
             return; //生成を中止
         }// if
 
-        if ( currentPower < area*4)
+        if (currentPower < area * 4)
         {
             lineRenderer.enabled = false;// 枠線を消す
             isDragging = false;// 状態リセット
@@ -281,8 +282,9 @@ public class MouseControll : MonoBehaviour
 
             // 適用
             field.transform.localScale = new Vector3(scaleX, scaleY, 1f);
-            
-            currentList++;
+
+            // 現在の重力場の生成数のカウントアップ
+            CountUp();
             ModeChange();
 
         }
@@ -337,7 +339,7 @@ public class MouseControll : MonoBehaviour
         }// if
 
         // 生成済みGravityFieldをFIFOで削除
-        while(fieldList.Count > 0)
+        while (fieldList.Count > 0)
         {
             int lastIndex = fieldList.Count - 1;
             GameObject oldField = fieldList[lastIndex];
@@ -358,7 +360,7 @@ public class MouseControll : MonoBehaviour
                 // 上で求めた面積の半分を四捨五入してエネルギーに足す
                 currentPower = currentPower + Mathf.Round(area.area);
                 Debug.Log("削除後の現在のエネルギー残量 = " + currentPower);
-                Debug.Log("削除で戻ったエネルギー = "+ Mathf.Round(area.area));
+                Debug.Log("削除で戻ったエネルギー = " + Mathf.Round(area.area));
             }// if
 
             Destroy(oldField);
@@ -367,7 +369,7 @@ public class MouseControll : MonoBehaviour
             CountDown();
 
             break; // １つ処理したら終了
-            
+
 
         }// while
 
@@ -377,7 +379,7 @@ public class MouseControll : MonoBehaviour
     void CursorState()
     {
         // ドラッグしていない時はDEFAULTカーソル
-        if(!isDragging || !lineRenderer.enabled)
+        if (!isDragging || !lineRenderer.enabled)
         {
             Cursor.SetCursor(cursorDefault, Vector2.zero, CursorMode.ForceSoftware);
             isYesCursor = true;
@@ -388,13 +390,13 @@ public class MouseControll : MonoBehaviour
         bool canCreate = CanCreateSilent();
 
         // 生成可能な時はYES
-        if(canCreate && !isYesCursor)
+        if (canCreate && !isYesCursor)
         {
             Cursor.SetCursor(cursorYes, Vector2.zero, CursorMode.ForceSoftware);
             isYesCursor = true;
         }
         // 生成不可能な時はNO
-        else if(!canCreate && isYesCursor)
+        else if (!canCreate && isYesCursor)
         {
             Cursor.SetCursor(cursorNo, Vector2.zero, CursorMode.ForceSoftware);
             isYesCursor = false;
@@ -417,16 +419,27 @@ public class MouseControll : MonoBehaviour
         {
             // 方向指定ボタンUIを表示
             DirectionBotton.SetActive(true);
-            Debug.Log("現在のエネルギー残量 = "+currentPower);
+            Debug.Log("現在のエネルギー残量 = " + currentPower);
         }
 
-        Debug.Log("モードチェンジ!"+mouseMode);
+        Debug.Log("モードチェンジ!" + mouseMode);
     }//ModeChange
+
+
+    void CountUp()
+    {
+        currentList++;
+        if (currentList >= maxFieldCount)
+        {
+            checkMaxField = true;
+        }
+    }
 
     //現在の生成されている重力場のカウントを減らす
     public void CountDown()
     {
         currentList--;
+        checkMaxField = false;
         if (currentList < 0)
         {
             currentList = 0;
@@ -466,7 +479,7 @@ public class MouseControll : MonoBehaviour
         RightClickDelete();
         fieldList.Add(newField);
         LastCreatedField = newField;
-        currentList++;
+        CountUp();
 
         return newField;
     }// CreateDirectionalField
