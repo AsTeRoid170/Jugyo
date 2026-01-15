@@ -148,7 +148,7 @@ public class playerMove : MonoBehaviour
 
     public void GravityDirectionControl(int gravityDirection)
     {
-        animator.SetBool("Turn", true);
+        //animator.SetBool("Turn", true);
         switch (gravityDirection)
         {
 
@@ -173,6 +173,7 @@ public class playerMove : MonoBehaviour
             default:
                 // Physics2D.gravity = new Vector2(0f, -defG);
                 animator.SetBool("IsGrounded", true); // 状態を維持する場合
+                
                 break;
 
         }
