@@ -3,8 +3,12 @@ using UnityEngine;
 public class playerMove : MonoBehaviour
 {
     Animator animator;
+    // 初期値（inspector）
     public float moveSpeed = 5f;
-    public float jumpForce = 7f;
+    public float jumpForce = 5f;
+
+    public float currentSpeed;
+    
 
     Rigidbody2D rb;
     bool isGrounded = false;
@@ -14,7 +18,7 @@ public class playerMove : MonoBehaviour
     //重力の強さ
     private float defG = 9.81f;
 
-    public float speed;        
+
     public GroundCheck ground;
     [SerializeField] bool isGround = false;
 
@@ -44,12 +48,14 @@ public class playerMove : MonoBehaviour
 
         float moveX = 0f;
 
+        currentSpeed = moveSpeed;
+
         if (Input.GetKey(KeyCode.A)) moveX = -1f;
         if (Input.GetKey(KeyCode.D)) moveX = 1f;
 
-        transform.position += new Vector3(moveX * moveSpeed * Time.deltaTime, 0f, 0f);
+        transform.position += new Vector3(moveX * currentSpeed * Time.deltaTime, 0f, 0f);
 
-        
+
 
         if (Input.GetMouseButtonDown(0))  // 0は左クリック
         {
@@ -71,9 +77,9 @@ public class playerMove : MonoBehaviour
         {
             animator.SetBool("Turn", false);
         }*/
-        
+
         // 落下状態
-        bool isFalling = !isGrounded ;
+        bool isFalling = !isGrounded;
         animator.SetBool("IsFalling", isFalling);
 
         bool isMoving = Mathf.Abs(moveX) > 0.01f;
@@ -96,13 +102,13 @@ public class playerMove : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             Debug.Log("Jump Now!");
-            
+
         }
 
         if (isGround == true)
         {
             isGrounded = true;
-            
+
             animator.SetBool("IsGrounded", true); // 状態を維持する場合
         }
 
@@ -126,11 +132,12 @@ public class playerMove : MonoBehaviour
         animator.SetBool("Skill", true);
         //rb.gravityScale = 0f;
 
-       
+
 
     }
 
-    void SkillAttackEnd() {
+    void SkillAttackEnd()
+    {
 
         Debug.Log("Skill");
         canMove = true;
@@ -146,23 +153,25 @@ public class playerMove : MonoBehaviour
         {
 
             case 1:
-                Physics2D.gravity = new Vector2(-defG, 0f);
+                // Physics2D.gravity = new Vector2(-defG, 0f);
+
                 Debug.Log("重力変更　左");
                 break;
             case 2:
-                Physics2D.gravity = new Vector2(defG, 0f);
+                // Physics2D.gravity = new Vector2(defG, 0f);
+
                 Debug.Log("重力変更　右");
                 break;
             case 3:
+                // Physics2D.gravity = new Vector2(0f, defG);
                 Debug.Log("重力変更　上");
-                Physics2D.gravity = new Vector2(0f, defG);
                 break;
             case 4:
-                Physics2D.gravity = new Vector2(0f, -defG * 2);
+                // Physics2D.gravity = new Vector2(0f, -defG * 2);
                 Debug.Log("重力変更　下");
                 break;
             default:
-                Physics2D.gravity = new Vector2(0f, -defG);
+                // Physics2D.gravity = new Vector2(0f, -defG);
                 animator.SetBool("IsGrounded", true); // 状態を維持する場合
                 break;
 
