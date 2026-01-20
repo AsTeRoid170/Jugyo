@@ -282,6 +282,7 @@ public class MouseControll : MonoBehaviour
 
             // 適用
             field.transform.localScale = new Vector3(scaleX, scaleY, 1f);
+            //field.transform.localScale = new Vector3(scaleX*0.28f, scaleY*0.28f, 1f);
 
             // 現在の重力場の生成数のカウントアップ
             CountUp();
