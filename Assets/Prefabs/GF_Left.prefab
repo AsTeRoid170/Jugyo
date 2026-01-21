@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8192911920513957017}
   - component: {fileID: 4632586997910264005}
   - component: {fileID: -8295551003203124856}
+  - component: {fileID: 7958747916088823632}
   m_Layer: 0
   m_Name: GF_Left
   m_TagString: GravityField
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 5895540913150188443, guid: 87ef849f266e27e4eaaec987480e3f55, type: 3}
+  m_Sprite: {fileID: 1341547242978641797, guid: 9ee29c4fe5e096d489a04b887ae9b258, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -148,11 +149,33 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.69, y: 3.69}
+    oldSize: {x: 12.8, y: 12.8}
     newSize: {x: 3.69, y: 3.69}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.69, y: 3.69}
+  m_Size: {x: 13, y: 13}
   m_EdgeRadius: 0
+--- !u!95 &7958747916088823632
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6139016498513800995}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f5d81b2970c39bb46a5484f154ab8782, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

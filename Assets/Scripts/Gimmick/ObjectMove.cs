@@ -10,6 +10,8 @@ public class ObjectMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
+
+
     }
 
     // Update is called once per frame
