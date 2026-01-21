@@ -5,16 +5,31 @@ using UnityEngine.UI;
 public class TitleStart : MonoBehaviour
 {
 
-    private void Start()
+    void Start()
     {
         // このオブジェクトについている Button を取得してクリック時の処理を登録
         Button button = GetComponent<Button>();
         button.onClick.AddListener(OnClickStart);
     }
 
-    // スタートボタンが押されたときに呼ばれる
-    private void OnClickStart()
+    void Awake()
     {
+        if (TryGetComponent(out Button button))
+        {
+            button.onClick.AddListener(OnClickStart);
+        }
+        else
+        {
+            Debug.LogError("Button コンポーネントが見つかりません");
+        }
+    }
+
+
+    // スタートボタンが押されたときに呼ばれる
+    public void OnClickStart()
+    {
+
         SceneManager.LoadScene("SelectScene");
+        Debug.Log("LoadScene呼ばれた");
     }
 }

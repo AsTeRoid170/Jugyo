@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class BackTitle : MonoBehaviour
+public class Tutorial: MonoBehaviour
 {
 
     private void Start()
@@ -15,6 +15,7 @@ public class BackTitle : MonoBehaviour
     // スタートボタンが押されたときに呼ばれる
     public void OnClickStart()
     {
-        SceneManager.LoadScene("GameTitleScene");
+        SceneManager.LoadScene("Tutorial");
     }
 }
+

@@ -13,8 +13,8 @@ public class TitleOption: MonoBehaviour
     }
 
     // スタートボタンが押されたときに呼ばれる
-    private void OnClickStart()
+    public void OnClickStart()
     {
-        SceneManager.LoadScene("OptionScene");
+        SceneManager.LoadScene("Option");
     }
 }

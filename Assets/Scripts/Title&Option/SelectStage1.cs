@@ -1,16 +1,20 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;  
+using UnityEngine.UI;              
 
-public class SelectStage1 : MonoBehaviour
+public class SelectStage1: MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    private void Start()
     {
-        
+        // このオブジェクトについている Button を取得してクリック時の処理を登録
+        Button button = GetComponent<Button>();
+        button.onClick.AddListener(OnClickStart);
     }
 
-    // Update is called once per frame
-    void Update()
+    // スタートボタンが押されたときに呼ばれる
+    public void OnClickStart()
     {
-        
+        SceneManager.LoadScene("Stage1");
     }
 }
