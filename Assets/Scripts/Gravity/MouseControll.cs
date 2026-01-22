@@ -144,11 +144,11 @@ public class MouseControll : MonoBehaviour
     {
 
         // 12/18に直す箇所（時間が早すぎるのでタイマーに）
-        currentPower++;
+        /*currentPower++;
         if (currentPower > maxPower)
         {
             currentPower = maxPower;
-        }
+        }*/
     }
 
     // 生成可能かどうか見る関数
@@ -359,7 +359,7 @@ public class MouseControll : MonoBehaviour
             {
                 Debug.Log("削除する重力場の面積 = " + area.area);
                 // 上で求めた面積の半分を四捨五入してエネルギーに足す
-                currentPower = currentPower + Mathf.Round(area.area);
+                //currentPower = currentPower + Mathf.Round(area.area);
                 Debug.Log("削除後の現在のエネルギー残量 = " + currentPower);
                 Debug.Log("削除で戻ったエネルギー = " + Mathf.Round(area.area));
             }// if
