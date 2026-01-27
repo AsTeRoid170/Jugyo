@@ -144,11 +144,11 @@ public class MouseControll : MonoBehaviour
     {
 
         // 12/18に直す箇所（時間が早すぎるのでタイマーに）
-        /*currentPower++;
+        currentPower++;
         if (currentPower > maxPower)
         {
             currentPower = maxPower;
-        }*/
+        }
     }
 
     // 生成可能かどうか見る関数
