@@ -50,6 +50,8 @@ public class MouseControll : MonoBehaviour
     // 追加：最後に生成した GravityField への参照
     public GameObject LastCreatedField { get; private set; }
 
+    private GravityMeter_Mask gravityMeter_Mask;
+
 
     // 方向ごとに対応するプレハブを返す
     GameObject GetPrefabByDirection(string dir)
@@ -73,6 +75,11 @@ public class MouseControll : MonoBehaviour
         // 初期化
         currentPower = maxPower;
 
+        GameObject obj = GameObject.Find("ActiveMeter");
+        if (obj != null)
+        {
+            gravityMeter_Mask = obj.GetComponent<GravityMeter_Mask>();
+        }
     }
 
     // Update is called once per frame
@@ -472,8 +479,10 @@ public class MouseControll : MonoBehaviour
             newGF.height = orgGF.height;
             // 必要なら方向情報なども設定
 
+            //消費するエネルギーの計算
             currentPower = currentPower - Mathf.Round(newGF.area * 2f);
             Debug.Log("生成後のエネルギー残量 = "+currentPower);
+            gravityMeter_Mask.MeterDown(Mathf.Round(newGF.area * 2f));
         }
 
         // 管理リストに入れる場合
