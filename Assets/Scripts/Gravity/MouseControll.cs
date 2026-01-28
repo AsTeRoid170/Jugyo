@@ -75,7 +75,8 @@ public class MouseControll : MonoBehaviour
         // èâä˙âª
         currentPower = maxPower;
 
-        GameObject obj = GameObject.Find("ActiveMeter");
+        //GameObject obj = GameObject.Find("ActiveMeter");
+        GameObject obj = GameObject.Find("EmptyMetrerGage");
         if (obj != null)
         {
             gravityMeter_Mask = obj.GetComponent<GravityMeter_Mask>();

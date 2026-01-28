@@ -5,9 +5,12 @@ public class GravityMeter_Mask : MonoBehaviour
 {
     [SerializeField] private RectMask2D target_rectMask;
 
-    public float speed = 10f; // 1秒あたり増える値（px）
+    //ゲージの最大幅
     private float maxWidth;
+    //ゲージを減らす幅を管理する
     private float downWidth;
+    //ゲージの減る速度
+    private float downSpeed = 30f;
 
     void Start()
     {
@@ -20,19 +23,18 @@ public class GravityMeter_Mask : MonoBehaviour
         // 初期状態（全部表示）
         target_rectMask.padding = new Vector4(0, 0, 0, 0);
 
-        downWidth = 0;
+        downWidth = maxWidth;
     }
 
     private void FixedUpdate()
     {
         
         Vector4 pad = target_rectMask.padding;
-        pad.z =Mathf.Clamp(pad.z + Time.deltaTime * downWidth, 0, downWidth);
+        //ゲージの描画制限(ゲージが減らす処理)
+        pad.x =Mathf.Clamp(pad.x - Time.deltaTime * downSpeed, downWidth, maxWidth);
 
         target_rectMask.padding = pad;
 
-        Debug.Log(pad.x);
-        
     }
 
     public void MeterDown(float DownEnergy)
@@ -42,6 +44,6 @@ public class GravityMeter_Mask : MonoBehaviour
         pad.z = Mathf.Clamp(pad.z + DownEnergy, 0, maxWidth);
         target_rectMask.padding = pad;
         */
-        downWidth = downWidth + DownEnergy;
+        downWidth = downWidth - DownEnergy;
     }
 }
