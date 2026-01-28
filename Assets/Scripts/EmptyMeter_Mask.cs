@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GravityMeter_Mask : MonoBehaviour
+public class EmptyMeter_Mask : MonoBehaviour
 {
     [SerializeField] private RectMask2D target_rectMask;
 
@@ -10,7 +10,10 @@ public class GravityMeter_Mask : MonoBehaviour
     //ゲージを減らす幅を管理する
     private float downWidth;
     //ゲージの減る速度
-    private float downSpeed = 30f;
+    private float downSpeed = 50f;
+    //DownEnergyの補正値
+    private float correctionvalue = 1.5f;
+
 
     void Start()
     {
@@ -30,6 +33,7 @@ public class GravityMeter_Mask : MonoBehaviour
     {
         
         Vector4 pad = target_rectMask.padding;
+        Debug.Log(pad.x);
         //ゲージの描画制限(ゲージが減らす処理)
         pad.x =Mathf.Clamp(pad.x - Time.deltaTime * downSpeed, downWidth, maxWidth);
 
@@ -44,6 +48,8 @@ public class GravityMeter_Mask : MonoBehaviour
         pad.z = Mathf.Clamp(pad.z + DownEnergy, 0, maxWidth);
         target_rectMask.padding = pad;
         */
+        DownEnergy = DownEnergy * correctionvalue;
         downWidth = downWidth - DownEnergy;
+        Debug.Log(downWidth);
     }
 }

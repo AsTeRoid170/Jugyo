@@ -251,9 +251,9 @@ TextureImporter:
       name: ui-6.png_9
       rect:
         serializedVersion: 2
-        x: 62
+        x: 63
         y: 143
-        width: 132
+        width: 130
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

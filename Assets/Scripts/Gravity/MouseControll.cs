@@ -38,6 +38,8 @@ public class MouseControll : MonoBehaviour
     //生成に必要なパワーの初期値
     private float maxPower = 100;
     public float CurrentPower => currentPower;
+    //重力場の生成に必要なパワーを自動回復させるかどうか trueの場合、自動回復する
+    [SerializeField] bool autoHeal;
 
     public GameObject DirectionBotton;
 
@@ -50,7 +52,7 @@ public class MouseControll : MonoBehaviour
     // 追加：最後に生成した GravityField への参照
     public GameObject LastCreatedField { get; private set; }
 
-    private GravityMeter_Mask gravityMeter_Mask;
+    private EmptyMeter_Mask emptyMeter_Mask;
 
 
     // 方向ごとに対応するプレハブを返す
@@ -79,7 +81,7 @@ public class MouseControll : MonoBehaviour
         GameObject obj = GameObject.Find("EmptyMetrerGage");
         if (obj != null)
         {
-            gravityMeter_Mask = obj.GetComponent<GravityMeter_Mask>();
+            emptyMeter_Mask = obj.GetComponent<EmptyMeter_Mask>();
         }
     }
 
@@ -152,10 +154,14 @@ public class MouseControll : MonoBehaviour
     {
 
         // 12/18に直す箇所（時間が早すぎるのでタイマーに）
-        currentPower++;
-        if (currentPower > maxPower)
+        // パワーの自動回復
+        if (autoHeal==true)
         {
-            currentPower = maxPower;
+            currentPower++;
+            if (currentPower > maxPower)
+            {
+                currentPower = maxPower;
+            }
         }
     }
 
@@ -483,7 +489,7 @@ public class MouseControll : MonoBehaviour
             //消費するエネルギーの計算
             currentPower = currentPower - Mathf.Round(newGF.area * 2f);
             Debug.Log("生成後のエネルギー残量 = "+currentPower);
-            gravityMeter_Mask.MeterDown(Mathf.Round(newGF.area * 2f));
+            emptyMeter_Mask.MeterDown(Mathf.Round(newGF.area * 2f));
         }
 
         // 管理リストに入れる場合
