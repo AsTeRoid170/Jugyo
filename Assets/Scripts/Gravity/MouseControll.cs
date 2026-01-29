@@ -52,7 +52,9 @@ public class MouseControll : MonoBehaviour
     // 追加：最後に生成した GravityField への参照
     public GameObject LastCreatedField { get; private set; }
 
-    private EmptyMeter_Mask emptyMeter_Mask;
+
+    //GravityPowerMeter制御用
+    private EnergyMeter_Mask energyMeter_Mask;
 
 
     // 方向ごとに対応するプレハブを返す
@@ -77,11 +79,11 @@ public class MouseControll : MonoBehaviour
         // 初期化
         currentPower = maxPower;
 
-        //GameObject obj = GameObject.Find("ActiveMeter");
-        GameObject obj = GameObject.Find("EmptyMetrerGage");
+        //EnergyMeterの取得
+        GameObject obj = GameObject.Find("EnergyMeter");
         if (obj != null)
         {
-            emptyMeter_Mask = obj.GetComponent<EmptyMeter_Mask>();
+            energyMeter_Mask = obj.GetComponent<EnergyMeter_Mask>();
         }
     }
 
@@ -489,7 +491,7 @@ public class MouseControll : MonoBehaviour
             //消費するエネルギーの計算
             currentPower = currentPower - Mathf.Round(newGF.area * 2f);
             Debug.Log("生成後のエネルギー残量 = "+currentPower);
-            emptyMeter_Mask.MeterDown(Mathf.Round(newGF.area * 2f));
+            energyMeter_Mask.MeterDown(Mathf.Round(newGF.area * 2f));
         }
 
         // 管理リストに入れる場合

@@ -1,10 +1,28 @@
 fileFormatVersion: 2
-guid: d413832f3776eb8459b6764be9ecec6c
+guid: 8e1ea748b26da9e4ebda5c830ba13a33
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -172429631206850863
-    second: Red Arrow_0
+      213: 3702030869050523056
+    second: ui-6.png 1_0
+  - first:
+      213: -41910762533643136
+    second: ui-6.png 1_1
+  - first:
+      213: 8995500328674342033
+    second: ui-6.png 1_2
+  - first:
+      213: -2945466183938533640
+    second: ui-6.png 1_3
+  - first:
+      213: -5549619748510046339
+    second: ui-6.png 1_4
+  - first:
+      213: -6477642501449317832
+    second: ui-6.png 1_5
+  - first:
+      213: -5932822929628222695
+    second: ui-6.png 1_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,23 +157,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Red Arrow_0
+      name: CreateLimitMeter.png 1_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 369
-        height: 369
+        x: 625
+        y: 1435
+        width: 1450
+        height: 150
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1def92bf9286b9df0800000000000000
-      internalID: -172429631206850863
+      spriteID: 1943b8383ef66dc70800000000000000
+      internalID: 8995500328674342033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EnergyMeter.png 1_3
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 1175
+        width: 1630
+        height: 250
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f61b688c1a9f17d0800000000000000
+      internalID: -2945466183938533640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GageUIEmpty.png 1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1040
+        width: 2560
+        height: 750
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20d05b68115387945943e4d0599e3a21
+      internalID: -482377401
       vertices: []
       indices: 
       edges: []
@@ -164,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ada890c9ba81b134c9ae7a0072639554
     internalID: 0
     vertices: []
     indices: 
@@ -174,7 +236,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Red Arrow_0: -172429631206850863
+      CreateLimitMeter.png 1_2: 8995500328674342033
+      EnergyMeter.png 1_3: -2945466183938533640
+      GageUIEmpty.png 1_0: -482377401
+      ui-6.png 1_0: 3702030869050523056
+      ui-6.png 1_1: -41910762533643136
+      ui-6.png 1_4: -5549619748510046339
+      ui-6.png 1_5: -6477642501449317832
+      ui-6.png 1_6: -5932822929628222695
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
