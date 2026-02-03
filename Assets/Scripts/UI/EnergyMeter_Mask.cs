@@ -20,8 +20,8 @@ public class EnergyMeter_Mask : MonoBehaviour
         // 同じGameObjectにアタッチされているMaskを取得
         target_rectMask = GetComponent<RectMask2D>();
 
-        // RectTransform の幅を上限値として記録
-        maxWidth = target_rectMask.rectTransform.rect.width;
+        // ゲージの最大幅の設定
+        maxWidth = 180;
 
         // 初期状態（全部表示）
         target_rectMask.padding = new Vector4(0, 0, 0, 0);
@@ -33,7 +33,6 @@ public class EnergyMeter_Mask : MonoBehaviour
     {
         
         Vector4 pad = target_rectMask.padding;
-        Debug.Log(pad.x);
         //ゲージの描画制限(ゲージが減らす処理)
         pad.x =Mathf.Clamp(pad.x - Time.deltaTime * downSpeed, downWidth, maxWidth);
 
@@ -48,8 +47,7 @@ public class EnergyMeter_Mask : MonoBehaviour
         pad.z = Mathf.Clamp(pad.z + DownEnergy, 0, maxWidth);
         target_rectMask.padding = pad;
         */
-        DownEnergy = DownEnergy * correctionvalue*10;
+        DownEnergy = DownEnergy * correctionvalue;
         downWidth = downWidth - DownEnergy;
-        Debug.Log(downWidth);
     }
 }
