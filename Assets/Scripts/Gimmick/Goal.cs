@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
@@ -26,7 +27,8 @@ public class Goal : MonoBehaviour
             //スコアをセーブ
             //PlayerPrefs.SetInt("score", score);
 
-            Debug.Log("クリア");
+            SceneManager.LoadScene("GameClearScene");
+
         }
     }
 }

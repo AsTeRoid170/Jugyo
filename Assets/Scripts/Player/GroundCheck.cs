@@ -13,7 +13,11 @@ public class GroundCheck : MonoBehaviour
     //物理判定の更新毎に呼ぶ必要がある
     public bool IsGround()
     {
-        if (isGroundEnter || isGroundStay)
+        /*if (isGroundEnter || isGroundStay)
+        {
+            isGround = true;
+        }*/
+        if (isGroundStay)
         {
             isGround = true;
         }

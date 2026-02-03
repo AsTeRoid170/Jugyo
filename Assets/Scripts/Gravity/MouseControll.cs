@@ -40,7 +40,11 @@ public class MouseControll : MonoBehaviour
     public float CurrentPower => currentPower;
     //重力場の生成に必要なパワーを自動回復させるかどうか trueの場合、自動回復する
     [SerializeField] bool autoHeal;
-
+    //重力場の生成時間制限
+    private float maxCreateLimitTimer = 10.0f;
+    [SerializeField] private float currentCreateLimitTimer;
+    private bool createCheck = false;
+    
     public GameObject DirectionBotton;
 
     // 方向別プレハブを Inspector から割り当て
@@ -79,6 +83,8 @@ public class MouseControll : MonoBehaviour
         // 初期化
         currentPower = maxPower;
 
+        currentCreateLimitTimer = maxCreateLimitTimer;
+
         //EnergyMeterの取得
         GameObject obj = GameObject.Find("EnergyMeter");
         if (obj != null)
@@ -90,10 +96,11 @@ public class MouseControll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // カーソル 毎フレーム判定
         CursorState();
         //Debug.Log(fieldList.Count);
+
+
         // 範囲指定モード
         if (mouseMode == true) {
 
@@ -105,6 +112,7 @@ public class MouseControll : MonoBehaviour
                     startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     isDragging = true;
                     lineRenderer.enabled = true;// 描画も有効化
+                    
                 } //if
                   // ドラッグ中は終点を更新
                 if (Input.GetMouseButton(0) && isDragging)
@@ -120,7 +128,7 @@ public class MouseControll : MonoBehaviour
                 }
 
                 // 左クリック終了(確定)
-                if (Input.GetMouseButtonUp(0) && isDragging)
+                if (Input.GetMouseButtonUp(0) && isDragging )
                 {
                     Time.timeScale = 1;
                     isDragging = false;
@@ -131,9 +139,13 @@ public class MouseControll : MonoBehaviour
 
 
             // 右クリックで削除（キャンセル or FIFO削除）
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) || currentCreateLimitTimer < 0)
             {
                 RightClickDelete();
+
+                currentCreateLimitTimer = maxCreateLimitTimer;
+                createCheck = false;
+                Debug.Log("しゅーりょー");
             }// if
 
         }//if
@@ -147,7 +159,6 @@ public class MouseControll : MonoBehaviour
             {
                 RightClickDelete();
                 ModeChange();
-                Time.timeScale = 1;
             }
         }
 
@@ -157,13 +168,21 @@ public class MouseControll : MonoBehaviour
 
         // 12/18に直す箇所（時間が早すぎるのでタイマーに）
         // パワーの自動回復
-        if (autoHeal==true)
+        if (autoHeal == true)
         {
             currentPower++;
             if (currentPower > maxPower)
             {
                 currentPower = maxPower;
             }
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            createCheck = true;
+        }
+        if(createCheck==true){
+            currentCreateLimitTimer -= 1;
         }
     }
 
@@ -268,7 +287,7 @@ public class MouseControll : MonoBehaviour
             return; //生成を中止
         }// if
 
-        if (currentPower < area * 4)
+        if (currentPower < area)
         {
             lineRenderer.enabled = false;// 枠線を消す
             isDragging = false;// 状態リセット
@@ -436,7 +455,7 @@ public class MouseControll : MonoBehaviour
         {
             // 方向指定ボタンUIを表示
             DirectionBotton.SetActive(true);
-            Debug.Log("現在のエネルギー残量 = " + currentPower);
+            Time.timeScale = 0.05f;
         }
 
         Debug.Log("モードチェンジ!" + mouseMode);
@@ -489,9 +508,9 @@ public class MouseControll : MonoBehaviour
             // 必要なら方向情報なども設定
 
             //消費するエネルギーの計算
-            currentPower = currentPower - Mathf.Round(newGF.area * 2f);
+            currentPower = currentPower - Mathf.Round(newGF.area);
             Debug.Log("生成後のエネルギー残量 = "+currentPower);
-            energyMeter_Mask.MeterDown(Mathf.Round(newGF.area * 2f));
+            energyMeter_Mask.MeterDown(Mathf.Round(newGF.area));
         }
 
         // 管理リストに入れる場合

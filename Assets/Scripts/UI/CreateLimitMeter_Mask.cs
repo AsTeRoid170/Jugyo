@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnergyMeter_Mask : MonoBehaviour
+public class CreateLimitMeter_Maskk : MonoBehaviour
 {
     [SerializeField] private RectMask2D target_rectMask;
 

@@ -18,6 +18,9 @@ public class playerMove : MonoBehaviour
     //重力の強さ
     private float defG = 9.81f;
 
+    //ジャンプ許可
+    private bool jumpflag = true;
+    private float timer;
 
     public GroundCheck ground;
     [SerializeField] bool isGround = false;
@@ -31,7 +34,7 @@ public class playerMove : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
-
+        timer = 0.0f;
         // カメラ初期位置
         cameraController.SetPosition(transform.position);
     }
@@ -99,12 +102,21 @@ public class playerMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        //ジャンプ制限
+        if (jumpflag == false )
+        {
+            timer += Time.deltaTime;
+            if (timer>1)
+            {
+                jumpflag = true;
+            }
+        }
         // ジャンプ処理
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && jumpflag==true)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             Debug.Log("Jump Now!");
-
+            jumpflag = false;
         }
 
         if (isGround == true)
