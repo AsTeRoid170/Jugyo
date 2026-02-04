@@ -25,7 +25,7 @@ public class Goal : MonoBehaviour
             float power = mouseControll.CurrentPower;
             score = (int)power;
             //スコアをセーブ
-            //PlayerPrefs.SetInt("score", score);
+            PlayerPrefs.SetInt("score", score);
 
             SceneManager.LoadScene("GameClearScene");
 

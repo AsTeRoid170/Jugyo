@@ -36,16 +36,17 @@ public class CreateLimitMeter_Mask : MonoBehaviour
     {
         
         Vector4 pad = target_rectMask.padding;
+        ////ƒQ[ƒW‚Ì•`‰æ§ŒÀ
         if (changeMode == true)
         {
+            //ƒQ[ƒW‚ğ‘‚â‚·ˆ—
             pad.x = Mathf.Clamp(pad.x + Time.deltaTime*changeSpeed, changeWidth, maxWidth);
         }
         else if(changeMode == false){
-            //ƒQ[ƒW‚Ì•`‰æ§ŒÀ(ƒQ[ƒW‚ªŒ¸‚ç‚·ˆ—)
+            //ƒQ[ƒW‚ğŒ¸‚ç‚·ˆ—
             pad.x = Mathf.Clamp(pad.x - changeSpeed, changeWidth, maxWidth);
         }
         target_rectMask.padding = pad;
-        Debug.Log(changeWidth);
 
     }
 
