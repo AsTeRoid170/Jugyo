@@ -10,13 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: Localization Shared Data
+  m_Name: StrTable Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: Localization
+  m_TableCollectionName: StrTable
   m_TableCollectionNameGuidString: fd76602f0914dd944b983153f204c9ef
   m_Entries:
-  - m_Id: 1941551120384
-    m_Key: BACK
+  - m_Id: 4624661379772416
+    m_Key: Back_Button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4655532904247296
+    m_Key: Option/Canvas/SelectStage/Canvas/JPButton/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4655550159613952
+    m_Key: Option/Canvas/SelectStage/Canvas/KRButton/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4655579494576128
+    m_Key: Option/Canvas/SelectStage/Canvas/ENButton/Text (TMP)
     m_Metadata:
       m_Items: []
   m_Metadata:

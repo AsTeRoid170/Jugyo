@@ -10,16 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: Localization_en
+  m_Name: StrTable_ko
   m_EditorClassIdentifier: 
   m_LocaleId:
-    m_Code: en
+    m_Code: ko
   m_SharedData: {fileID: 11400000, guid: fd76602f0914dd944b983153f204c9ef, type: 2}
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 1941551120384
-    m_Localized: BACK
+  - m_Id: 4624661379772416
+    m_Localized: "\uC2DC\uC791\uD654\uBA74"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4655532904247296
+    m_Localized: ja
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4655550159613952
+    m_Localized: ko
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4655579494576128
+    m_Localized: en
     m_Metadata:
       m_Items: []
   references:
