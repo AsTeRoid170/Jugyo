@@ -40,9 +40,10 @@ public class MouseControll : MonoBehaviour
     public float CurrentPower => currentPower;
     //重力場の生成に必要なパワーを自動回復させるかどうか trueの場合、自動回復する
     [SerializeField] bool autoHeal;
-    //重力場の生成時間制限
+
+    //重力場の生成時間制限用
     private float maxCreateLimitTimer = 10.0f;
-    [SerializeField] private float currentCreateLimitTimer;
+    public float currentCreateLimitTimer;
     private bool createCheck = false;
     
     public GameObject DirectionBotton;
@@ -56,7 +57,8 @@ public class MouseControll : MonoBehaviour
     // 追加：最後に生成した GravityField への参照
     public GameObject LastCreatedField { get; private set; }
 
-
+    //CreateLimitMeter制御用
+    private CreateLimitMeter_Mask createLimitMeter_Mask;
     //GravityPowerMeter制御用
     private EnergyMeter_Mask energyMeter_Mask;
 
@@ -85,11 +87,17 @@ public class MouseControll : MonoBehaviour
 
         currentCreateLimitTimer = maxCreateLimitTimer;
 
-        //EnergyMeterの取得
-        GameObject obj = GameObject.Find("EnergyMeter");
-        if (obj != null)
+        GameObject obj1 = GameObject.Find("CreateLimitMeter");
+        if (obj1 != null)
         {
-            energyMeter_Mask = obj.GetComponent<EnergyMeter_Mask>();
+            createLimitMeter_Mask = obj1.GetComponent<CreateLimitMeter_Mask>();
+        }
+
+        //EnergyMeterの取得
+        GameObject obj2 = GameObject.Find("EnergyMeter");
+        if (obj2 != null)
+        {
+            energyMeter_Mask = obj2.GetComponent<EnergyMeter_Mask>();
         }
     }
 
@@ -100,6 +108,30 @@ public class MouseControll : MonoBehaviour
         CursorState();
         //Debug.Log(fieldList.Count);
 
+        //currentCreateLimitTimerの制御
+        if (createCheck == true)
+        {
+            currentCreateLimitTimer -= Time.unscaledDeltaTime;
+            createLimitMeter_Mask.TimerDown(currentCreateLimitTimer);
+        }
+        if (createCheck == false)
+        {
+            currentCreateLimitTimer += Time.deltaTime;
+            createLimitMeter_Mask.TimerUp(currentCreateLimitTimer);
+            if (currentCreateLimitTimer > maxCreateLimitTimer)
+            {
+                currentCreateLimitTimer = maxCreateLimitTimer;
+            }
+        }
+        if(currentCreateLimitTimer < 0)
+        {
+            RightClickDelete();
+            createCheck = false;
+            if (mouseMode == false)
+            {
+                ModeChange();
+            }
+        }
 
         // 範囲指定モード
         if (mouseMode == true) {
@@ -112,7 +144,9 @@ public class MouseControll : MonoBehaviour
                     startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     isDragging = true;
                     lineRenderer.enabled = true;// 描画も有効化
-                    
+                    //currentCreateLimitTimerをスタートさせる
+                    createCheck = true;
+
                 } //if
                   // ドラッグ中は終点を更新
                 if (Input.GetMouseButton(0) && isDragging)
@@ -134,26 +168,30 @@ public class MouseControll : MonoBehaviour
                     isDragging = false;
                     CreateGravityField(); // 範囲フィット生成
                     lineRenderer.enabled = false; // 線は自動で消す
+                    createCheck = false;
                 }// if
             }
 
 
             // 右クリックで削除（キャンセル or FIFO削除）
-            if (Input.GetMouseButtonDown(1) || currentCreateLimitTimer < 0)
+            if (Input.GetMouseButtonDown(1))
             {
                 RightClickDelete();
-
-                currentCreateLimitTimer = maxCreateLimitTimer;
+                //currentCreateLimitTimerを停止
                 createCheck = false;
-                Debug.Log("しゅーりょー");
-            }// if
 
+            }// if
         }//if
 
         // 方向指定モード
         if (mouseMode == false)
         {
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
+            //マウスが押されていない間currentCreateLimitTimerを減らす
+            if (!Input.GetMouseButtonUp(0))
+            {
+                createCheck = true;
+            }
             // 右クリックで作成をキャンセル
             if (Input.GetMouseButtonDown(1))
             {
@@ -166,7 +204,9 @@ public class MouseControll : MonoBehaviour
     private void FixedUpdate()
     {
 
-        // 12/18に直す箇所（時間が早すぎるのでタイマーに）
+        
+
+        // テスト用
         // パワーの自動回復
         if (autoHeal == true)
         {
@@ -177,13 +217,7 @@ public class MouseControll : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            createCheck = true;
-        }
-        if(createCheck==true){
-            currentCreateLimitTimer -= 1;
-        }
+        
     }
 
     // 生成可能かどうか見る関数
@@ -449,6 +483,8 @@ public class MouseControll : MonoBehaviour
         {
             // 方向指定ボタンUIを非表示
             DirectionBotton.SetActive(false);
+            //currentCreateLimitTimerを停止
+            createCheck = false;
             Time.timeScale = 1;
         }
         if (mouseMode == false)
@@ -457,8 +493,6 @@ public class MouseControll : MonoBehaviour
             DirectionBotton.SetActive(true);
             Time.timeScale = 0.05f;
         }
-
-        Debug.Log("モードチェンジ!" + mouseMode);
     }//ModeChange
 
 

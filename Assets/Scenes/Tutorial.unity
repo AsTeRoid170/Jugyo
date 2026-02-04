@@ -264,6 +264,8 @@ MonoBehaviour:
   lineRenderer: {fileID: 49442256}
   GravityField: {fileID: 1798698200459839300, guid: 88f802c60e99b6247b422b560fd003d9, type: 3}
   autoHeal: 1
+  currentCreateLimitTimer: 0
+  createCheck: 0
   DirectionBotton: {fileID: 564873057}
   prefabUp: {fileID: 8743355642387453503, guid: 16ba1059139bc5a45a1dad5de67a95a7, type: 3}
   prefabDown: {fileID: 3978778079213368818, guid: 9e3b519ce783f2c4c8a85884556fa19e, type: 3}
@@ -16243,6 +16245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 134188517}
   - component: {fileID: 134188518}
+  - component: {fileID: 134188519}
   m_Layer: 0
   m_Name: CreateLimitMeter
   m_TagString: Untagged
@@ -16284,6 +16287,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 0, y: 0}
+--- !u!114 &134188519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134188516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fbe89bf1be69434ca886713cea2a5c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target_rectMask: {fileID: 134188518}
 --- !u!1 &148266882
 GameObject:
   m_ObjectHideFlags: 0
