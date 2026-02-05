@@ -33,7 +33,7 @@ public class MouseControll : MonoBehaviour
     //現在の生成されている重力場の数
     private int currentList = 0;
     //現在の生成に必要なパワー
-    private float currentPower;
+    public float currentPower;
     private const int maxFieldCount = 2;
     //生成に必要なパワーの初期値
     private float maxPower = 100;
@@ -106,7 +106,6 @@ public class MouseControll : MonoBehaviour
     {
         // カーソル 毎フレーム判定
         CursorState();
-        //Debug.Log(fieldList.Count);
 
         //currentCreateLimitTimerの制御
         if (createCheck == true)
