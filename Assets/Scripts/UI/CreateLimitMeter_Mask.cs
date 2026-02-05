@@ -1,18 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CreateLimitMeter_Maskk : MonoBehaviour
+public class CreateLimitMeter_Mask : MonoBehaviour
 {
     [SerializeField] private RectMask2D target_rectMask;
 
     //ゲージの最大幅
     private float maxWidth;
-    //ゲージを減らす幅を管理する
-    private float downWidth;
-    //ゲージの減る速度
-    private float downSpeed = 50f;
+    //ゲージの増減する幅を管理する
+    private float changeWidth;
+    //ゲージの増減する速度
+    private float changeSpeed;
     //DownEnergyの補正値
-    private float correctionvalue = 1.7f;
+    private float correctionvalue = 16f;
+    //ゲージの増減を判定
+    private bool changeMode = true;
 
 
     void Start()
@@ -21,33 +23,49 @@ public class CreateLimitMeter_Maskk : MonoBehaviour
         target_rectMask = GetComponent<RectMask2D>();
 
         // ゲージの最大幅の設定
-        maxWidth = 180;
+        maxWidth = 160;
 
         // 初期状態（全部表示）
         target_rectMask.padding = new Vector4(0, 0, 0, 0);
 
-        downWidth = maxWidth;
+        changeWidth = maxWidth;
+        changeSpeed= maxWidth/10;
     }
 
-    private void FixedUpdate()
+    void Update()
     {
         
         Vector4 pad = target_rectMask.padding;
-        //ゲージの描画制限(ゲージが減らす処理)
-        pad.x =Mathf.Clamp(pad.x - Time.deltaTime * downSpeed, downWidth, maxWidth);
-
+        ////ゲージの描画制限
+        if (changeMode == true)
+        {
+            //ゲージを増やす処理
+            pad.x = Mathf.Clamp(pad.x + Time.deltaTime*changeSpeed, changeWidth, maxWidth);
+        }
+        else if(changeMode == false){
+            //ゲージを減らす処理
+            pad.x = Mathf.Clamp(pad.x - changeSpeed, changeWidth, maxWidth);
+        }
         target_rectMask.padding = pad;
 
     }
 
-    public void MeterDown(float DownEnergy)
+    public void TimerUp(float time)
     {
-        /*
-        Vector4 pad = target_rectMask.padding;
-        pad.z = Mathf.Clamp(pad.z + DownEnergy, 0, maxWidth);
-        target_rectMask.padding = pad;
-        */
-        DownEnergy = DownEnergy * correctionvalue;
-        downWidth = downWidth - DownEnergy;
+        changeMode = true;
+        changeWidth = time*correctionvalue;
+        if (changeWidth>maxWidth)
+        {
+            changeWidth = maxWidth;
+        }
+    }
+    public void TimerDown(float time)
+    {
+        changeMode = false;
+        changeWidth= time*correctionvalue;
+        if (changeWidth<0)
+        {
+            changeWidth = 0;
+        }
     }
 }
