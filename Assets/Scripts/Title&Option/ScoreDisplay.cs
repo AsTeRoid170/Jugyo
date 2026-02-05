@@ -8,13 +8,8 @@ public class ScoreDisplay : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        UpdateScoreText();
-    }
-
-    // Update is called once per frame
-    public void SetScore(int newScore)
-    {
-        score = newScore;
+        score = PlayerPrefs.GetInt("score", 0);
+        PlayerPrefs.Save();
         UpdateScoreText();
     }
 
