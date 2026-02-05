@@ -23,15 +23,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4655532904247296
-    m_Localized: ja
+    m_Localized: "\uC77C\uBCF8\uC5B4"
     m_Metadata:
       m_Items: []
   - m_Id: 4655550159613952
-    m_Localized: ko
+    m_Localized: "\uD55C\uAD6D\uC5B4"
     m_Metadata:
       m_Items: []
   - m_Id: 4655579494576128
-    m_Localized: en
+    m_Localized: "\uC601\uC5B4"
     m_Metadata:
       m_Items: []
   references:

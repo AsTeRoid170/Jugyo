@@ -16,7 +16,7 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: fd76602f0914dd944b983153f204c9ef
   m_Entries:
   - m_Id: 4624661379772416
-    m_Key: Back_Button
+    m_Key: Option/Canvas/SelectStage/Canvas/Back_Button/Text(TMP)
     m_Metadata:
       m_Items: []
   - m_Id: 4655532904247296
@@ -28,7 +28,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4655579494576128
-    m_Key: Option/Canvas/SelectStage/Canvas/ENButton/Text (TMP)
+    m_Key: Option/Canvas/SelectStage/Canvas/ENButton/Text (TMP)0
     m_Metadata:
       m_Items: []
   m_Metadata:

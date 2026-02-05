@@ -22,6 +22,18 @@ MonoBehaviour:
     m_Localized: Back
     m_Metadata:
       m_Items: []
+  - m_Id: 4655532904247296
+    m_Localized: Japanese
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4655579494576128
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4655550159613952
+    m_Localized: Korean
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
